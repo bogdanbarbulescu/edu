@@ -1,109 +1,154 @@
 {
   "modules": [
     {
-      "id": "math_basics",
-      "title": "Matematică de Bază",
-      "description": "Învață conceptele fundamentale ale matematicii.",
-      "icon": "fas fa-calculator", 
+      "id": "dc_circuits",
+      "title": "Electronica: Curent Continuu",
+      "description": "Fundamentele circuitelor de curent continuu, legea lui Ohm și legile lui Kirchhoff.",
+      "icon": "fas fa-battery-full",
       "lessons": [
         {
-          "id": "math_lesson1",
-          "title": "Adunarea Simplă",
-          "short_description": "Înțelege adunarea și exersează calcule simple.",
-          "estimated_time": "5 min",
-          "xp": 10,
-          "exercises": [
-            {
-              "type": "info",
-              "text": "Adunarea este procesul de a combina două sau mai multe numere. De exemplu, dacă ai 2 mere și primești încă 2, vei avea 4 mere.",
-              "image": "assets/images/math_visual_example.png"
-            },
-            {
-              "type": "multiple_choice",
-              "question": "Cât fac 2 + 3?",
-              "options": [
-                {"text": "4"},
-                {"text": "5"},
-                {"text": "6"},
-                {"text": "3"}
-              ],
-              "answer": "5",
-              "explanation": "2 adunat cu 3 este egal cu 5."
-            },
-            {
-              "type": "fill_in_the_blank",
-              "question": "Completează spațiul liber: 5 + __ = 8",
-              "beforeText": "5 + ",
-              "afterText": " = 8",
-              "answer": ["3"], 
-              "placeholder": "număr",
-              "explanation": "Pentru a ajunge de la 5 la 8, trebuie să adaugi 3."
-            }
-          ]
-        },
-        {
-          "id": "math_lesson2",
-          "title": "Scăderea Simplă",
-          "short_description": "Învață despre operația de scădere.",
-          "estimated_time": "7 min",
+          "id": "dc_lesson1_ohm",
+          "title": "Legea lui Ohm și Concepte de Bază",
+          "short_description": "Înțelege tensiunea, curentul, rezistența și relația dintre ele.",
+          "estimated_time": "10 min",
           "xp": 15,
           "exercises": [
             {
               "type": "info",
-              "text": "Scăderea înseamnă a lua un număr dintr-un altul. Dacă ai 5 bomboane și mănânci 2, îți rămân 3."
+              "text": "Curentul continuu (DC) este un flux unidirecțional de sarcină electrică. Mărimile fundamentale sunt: Tensiunea (U, măsurată în Volți - V), Curentul (I, măsurat în Amperi - A) și Rezistența (R, măsurată în Ohmi - Ω).",
+              "image": "assets/images/dc_circuit_basics.png"
+            },
+            {
+              "type": "info",
+              "text": "Legea lui Ohm stabilește relația dintre aceste mărimi: U = I * R. Aceasta înseamnă că tensiunea la bornele unui rezistor este direct proporțională cu curentul care îl străbate și cu valoarea rezistenței sale.",
+              "image": "assets/images/ohm_law_triangle.png"
             },
             {
               "type": "multiple_choice",
-              "question": "Cât fac 7 - 4?",
+              "question": "Dacă tensiunea aplicată unui rezistor de 5 Ω este de 10 V, care este valoarea curentului care îl parcurge?",
               "options": [
-                {"text": "2"},
-                {"text": "3"},
-                {"text": "1"},
-                {"text": "5"}
+                {"text": "0.5 A"},
+                {"text": "2 A"},
+                {"text": "5 A"},
+                {"text": "50 A"}
               ],
-              "answer": "3",
-              "explanation": "7 minus 4 este egal cu 3."
+              "answer": "2 A",
+              "explanation": "Folosind Legea lui Ohm, I = U / R = 10 V / 5 Ω = 2 A."
+            },
+            {
+              "type": "fill_in_the_blank",
+              "question": "Completează spațiul liber: Dacă un curent de 3 A parcurge un rezistor și produce o cădere de tensiune de 12 V, rezistența este de __ Ω.",
+              "beforeText": "Dacă un curent de 3 A parcurge un rezistor și produce o cădere de tensiune de 12 V, rezistența este de ",
+              "afterText": " Ω.",
+              "answer": ["4"],
+              "placeholder": "valoare",
+              "explanation": "Din Legea lui Ohm, R = U / I = 12 V / 3 A = 4 Ω."
+            }
+          ]
+        },
+        {
+          "id": "dc_lesson2_kirchhoff",
+          "title": "Legile lui Kirchhoff",
+          "short_description": "Aplicarea legii nodurilor (KCL) și legii ochiurilor (KVL) în circuite DC.",
+          "estimated_time": "12 min",
+          "xp": 20,
+          "exercises": [
+            {
+              "type": "info",
+              "text": "Legile lui Kirchhoff sunt fundamentale pentru analiza circuitelor electrice.\nLegea I (Legea Nodurilor - KCL): Suma algebrică a curenților într-un nod de rețea este nulă (suma curenților care intră = suma curenților care ies).\nLegea II (Legea Ochiurilor - KVL): Suma algebrică a tensiunilor electromotoare dintr-un ochi de rețea este egală cu suma algebrică a căderilor de tensiune pe rezistoarele din acel ochi.",
+              "image": "assets/images/kirchhoff_laws_diagram.png"
+            },
+            {
+              "type": "multiple_choice",
+              "question": "Într-un nod de circuit intră curenții I1 = 2A și I2 = 3A. Ce curent I3 trebuie să iasă din nod pentru a respecta KCL?",
+              "options": [
+                {"text": "1 A"},
+                {"text": "2.5 A"},
+                {"text": "5 A"},
+                {"text": "6 A"}
+              ],
+              "answer": "5 A",
+              "explanation": "Conform KCL, suma curenților care intră (2A + 3A = 5A) trebuie să fie egală cu suma curenților care ies (I3). Deci I3 = 5A."
+            },
+            {
+                "type": "info",
+                "text": "Exemplu KVL: Într-un circuit serie cu o sursă de 10V și două rezistoare R1 și R2, tensiunea sursei este egală cu suma căderilor de tensiune pe R1 și R2 (10V = UR1 + UR2)."
             }
           ]
         }
       ]
     },
     {
-      "id": "grammar_basics",
-      "title": "Gramatică Română",
-      "description": "Principii de bază ale gramaticii limbii române.",
-      "icon": "fas fa-spell-check",
+      "id": "ac_circuits",
+      "title": "Electronica: Curent Alternativ",
+      "description": "Introducere în circuitele de curent alternativ, fazori, impedanță și putere.",
+      "icon": "fas fa-wave-square",
       "lessons": [
         {
-          "id": "grammar_lesson1",
-          "title": "Substantivul",
-          "short_description": "Ce este substantivul și cum îl recunoști.",
-          "estimated_time": "10 min",
-          "xp": 10,
+          "id": "ac_lesson1_basics",
+          "title": "Parametrii Semnalului Sinusoidal",
+          "short_description": "Amplitudine, frecvență, perioadă, valoare efectivă (RMS) și fază.",
+          "estimated_time": "15 min",
+          "xp": 20,
           "exercises": [
             {
               "type": "info",
-              "text": "Substantivul este partea de vorbire care denumește ființe, lucruri, fenomene ale naturii, etc. De exemplu: 'casă', 'copil', 'ploaie'.",
-              "image": "assets/images/grammar_visual_example.png"
+              "text": "Curentul alternativ (AC) își schimbă periodic sensul. Cel mai comun este semnalul sinusoidal. Parametrii cheie sunt: Amplitudinea (valoarea maximă), Frecvența (f, în Hertz - Hz), Perioada (T = 1/f, în secunde - s), Valoarea Efectivă (RMS - Ueff = Umax / √2), Faza inițială (φ).",
+              "image": "assets/images/sinusoidal_wave_params.png"
             },
             {
-              "type": "drag_drop_words",
-              "question": "Ordonează cuvintele pentru a forma o propoziție corectă:",
-              "words": ["pisica", "șoarecele", "prinde"],
-              "correctOrder": ["pisica", "prinde", "șoarecele"],
-              "explanation": "Propoziția corectă este 'Pisica prinde șoarecele'."
+              "type": "multiple_choice",
+              "question": "Dacă un semnal AC are o frecvență de 50 Hz, care este perioada sa?",
+              "options": [
+                {"text": "0.01 s"},
+                {"text": "0.02 s"},
+                {"text": "50 s"},
+                {"text": "100 s"}
+              ],
+              "answer": "0.02 s",
+              "explanation": "Perioada T = 1/f. Deci, T = 1 / 50 Hz = 0.02 s (sau 20 ms)."
             },
             {
-                "type": "multiple_choice",
-                "question": "Care dintre următoarele este un substantiv?",
-                "options": [
-                    {"text": "aleargă"},
-                    {"text": "frumos"},
-                    {"text": "carte"},
-                    {"text": "repede"}
-                ],
-                "answer": "carte",
-                "explanation": "'Carte' denumește un obiect, deci este un substantiv."
+              "type": "fill_in_the_blank",
+              "question": "Valoarea efectivă (RMS) a unei tensiuni sinusoidale cu amplitudinea de 10V este aproximativ __ V.",
+              "beforeText": "Valoarea efectivă (RMS) a unei tensiuni sinusoidale cu amplitudinea de 10V este aproximativ ",
+              "afterText": " V.",
+              "answer": ["7.07"],
+              "placeholder": "valoare",
+              "explanation": "Ueff = Umax / √2 = 10V / 1.414 ≈ 7.07V."
+            }
+          ]
+        },
+        {
+          "id": "ac_lesson2_rlc",
+          "title": "Elemente Pasive în AC: R, L, C",
+          "short_description": "Comportamentul rezistoarelor, bobinelor și condensatoarelor în AC. Reactanță și Impedanță.",
+          "estimated_time": "18 min",
+          "xp": 25,
+          "exercises": [
+            {
+              "type": "info",
+              "text": "În AC: \n- Rezistorul (R): Tensiunea și curentul sunt în fază.\n- Bobina (L): Introduce reactanța inductivă XL = ωL = 2πfL. Tensiunea este defazată cu 90° înaintea curentului.\n- Condensatorul (C): Introduce reactanța capacitivă XC = 1/(ωC) = 1/(2πfC). Curentul este defazat cu 90° înaintea tensiunii.\nImpedanța (Z) este opoziția totală față de curent în AC și se măsoară în Ohmi (Ω).",
+              "image": "assets/images/rlc_ac_behavior.png"
+            },
+            {
+              "type": "multiple_choice",
+              "question": "Ce se întâmplă cu reactanța capacitivă (XC) dacă frecvența semnalului AC crește?",
+              "options": [
+                {"text": "Crește"},
+                {"text": "Scade"},
+                {"text": "Rămâne constantă"},
+                {"text": "Devine zero"}
+              ],
+              "answer": "Scade",
+              "explanation": "Reactanța capacitivă XC = 1/(2πfC). Dacă f crește, XC scade."
+            },
+            {
+                "type": "drag_drop_words",
+                "question": "Ordonează corect termenii pentru a descrie relația de fază într-un circuit pur inductiv:",
+                "words": ["curentului", "tensiunea", "înaintea", "este", "defazată"],
+                "correctOrder": ["tensiunea", "este", "defazată", "înaintea", "curentului"],
+                "explanation": "Într-o bobină ideală, tensiunea este defazată cu 90 de grade înaintea curentului."
             }
           ]
         }
@@ -111,28 +156,28 @@
     }
   ],
   "badges": [
-    { 
-      "id": "xp100", 
-      "name": "Maestru XP 100", 
-      "description": "Ai acumulat 100 XP!", 
-      "icon_path": "assets/images/badge_xp_100.svg", 
-      "icon_class_fallback": "fas fa-star", 
-      "conditionType": "xp", "value": 100 
+    {
+      "id": "xp100_electronics",
+      "name": "Electronist XP 100",
+      "description": "Ai acumulat 100 XP în modulele de electronică!",
+      "icon_path": "assets/images/badge_xp_100_electronics.svg",
+      "icon_class_fallback": "fas fa-bolt",
+      "conditionType": "xp", "value": 100
     },
-    { 
-      "id": "streak3", 
-      "name": "Seria de 3 Zile", 
-      "description": "Ai menținut o serie de 3 zile!", 
-      "icon_path": "assets/images/badge_streak_3.svg", 
-      "icon_class_fallback": "fas fa-fire",
-      "conditionType": "streak", "value": 3 
+    {
+      "id": "dc_master",
+      "name": "Maestru DC",
+      "description": "Ai finalizat toate lecțiile despre curentul continuu!",
+      "icon_path": "assets/images/badge_dc_master.svg",
+      "icon_class_fallback": "fas fa-battery-three-quarters",
+      "conditionType": "module_completed", "value": "dc_circuits"
     },
-    { 
-      "id": "first_lesson", 
-      "name": "Primul Pas", 
-      "description": "Ai completat prima ta lecție!", 
-      "icon_path": "assets/images/badge_first_lesson.svg", 
-      "icon_class_fallback": "fas fa-graduation-cap",
+    {
+      "id": "first_electronics_lesson",
+      "name": "Primul Circuit",
+      "description": "Ai completat prima ta lecție de electronică!",
+      "icon_path": "assets/images/badge_first_electronics_lesson.svg",
+      "icon_class_fallback": "fas fa-microchip",
       "conditionType": "lessons_completed", "value": 1
     }
   ]
