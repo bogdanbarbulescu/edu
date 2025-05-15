@@ -1,0 +1,415 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Schemă Platformă Educațională",
+  "type": "object",
+  "properties": {
+    "modules": {
+      "type": "array",
+      "title": "Module de Curs",
+      "items": {
+        "type": "object",
+        "title": "Modul",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID Modul",
+            "description": "Identificator unic (ex: math_basics, ac_circuits_fundamentals)"
+          },
+          "title": {
+            "type": "string",
+            "title": "Titlu Modul"
+          },
+          "description": {
+            "type": "string",
+            "title": "Descriere Modul",
+            "options": {"textarea_rows": 3}
+          },
+          "icon": {
+            "type": "string",
+            "title": "Clasă Iconiță",
+            "description": "Clasă FontAwesome (ex: fas fa-calculator)"
+          },
+          "lessons": {
+            "type": "array",
+            "title": "Lecții",
+            "items": {
+              "type": "object",
+              "title": "Lecție",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "title": "ID Lecție",
+                  "description": "Identificator unic (ex: math_lesson1, ac_lesson_fourier_lab)"
+                },
+                "title": {
+                  "type": "string",
+                  "title": "Titlu Lecție"
+                },
+                "short_description": {
+                  "type": "string",
+                  "title": "Scurtă Descriere",
+                  "options": {"textarea_rows": 3}
+                },
+                "estimated_time": {
+                  "type": "string",
+                  "title": "Timp Estimat",
+                  "description": "Ex: 5 min, 1 oră"
+                },
+                "xp": {
+                  "type": "integer",
+                  "title": "XP Acordat",
+                  "minimum": 0
+                },
+                "exercises": {
+                  "type": "array",
+                  "title": "Exerciții",
+                  "items": {
+                    "type": "object",
+                    "title": "Exercițiu",
+                    "headerTemplate": "{{self.type}} - {{self.question | default self.text | default self.title | default ('Exercițiu Nou ' + $idx)}}",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "title": "Tip Exercițiu",
+                        "enum": [
+                          "info",
+                          "multiple_choice",
+                          "fill_in_the_blank",
+                          "drag_drop_words",
+                          "interactive_lab"
+                        ],
+                        "default": "info"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "oneOf": [
+                      {
+                        "title": "Informațional",
+                        "properties": {
+                          "type": {
+                            "const": "info"
+                          },
+                          "text": {
+                            "type": "string",
+                            "title": "Text Informațional",
+                            "options": {"textarea_rows": 5}
+                          },
+                          "image": {
+                            "type": "string",
+                            "title": "URL Imagine (opțional)",
+                            "format": "url"
+                          }
+                        },
+                        "required": [
+                          "text"
+                        ]
+                      },
+                      {
+                        "title": "Alegere Multiplă",
+                        "properties": {
+                          "type": {
+                            "const": "multiple_choice"
+                          },
+                          "question": {
+                            "type": "string",
+                            "title": "Întrebare"
+                          },
+                          "image": {
+                            "type": "string",
+                            "title": "URL Imagine (opțional)",
+                            "format": "url"
+                          },
+                          "options": {
+                            "type": "array",
+                            "title": "Opțiuni Răspuns",
+                            "items": {
+                              "type": "object",
+                              "title": "Opțiune",
+                              "properties": {
+                                "text": {
+                                  "type": "string",
+                                  "title": "Text Opțiune"
+                                }
+                              },
+                              "required": [
+                                "text"
+                              ]
+                            }
+                          },
+                          "answer": {
+                            "type": "string",
+                            "title": "Răspuns Corect",
+                            "description": "Textul exact al opțiunii corecte."
+                          },
+                          "explanation": {
+                            "type": "string",
+                            "title": "Explicație Răspuns",
+                            "options": {"textarea_rows": 3}
+                          }
+                        },
+                        "required": [
+                          "question",
+                          "options",
+                          "answer"
+                        ]
+                      },
+                      {
+                        "title": "Completează Spațiul Liber",
+                        "properties": {
+                          "type": {
+                            "const": "fill_in_the_blank"
+                          },
+                          "question": {
+                            "type": "string",
+                            "title": "Text Întrebare (cu __ pentru spațiul liber)"
+                          },
+                          "image": {
+                            "type": "string",
+                            "title": "URL Imagine (opțional)",
+                            "format": "url"
+                          },
+                          "beforeText": {
+                            "type": "string",
+                            "title": "Text Înainte de Spațiu (opțional)"
+                          },
+                          "afterText": {
+                            "type": "string",
+                            "title": "Text După Spațiu (opțional)"
+                          },
+                          "answer": {
+                            "type": "array",
+                            "title": "Răspunsuri Corecte Posibile",
+                            "items": {
+                              "type": "string",
+                              "title": "Varianta corectă"
+                            }
+                          },
+                          "placeholder": {
+                            "type": "string",
+                            "title": "Text Placeholder pentru Input"
+                          },
+                          "explanation": {
+                            "type": "string",
+                            "title": "Explicație Răspuns",
+                            "options": {"textarea_rows": 3}
+                          }
+                        },
+                        "required": [
+                          "question",
+                          "answer"
+                        ]
+                      },
+                      {
+                        "title": "Ordonează Cuvintele",
+                        "properties": {
+                          "type": {
+                            "const": "drag_drop_words"
+                          },
+                          "question": {
+                            "type": "string",
+                            "title": "Instrucțiune/Întrebare"
+                          },
+                          "image": {
+                            "type": "string",
+                            "title": "URL Imagine (opțional)",
+                            "format": "url"
+                          },
+                          "words": {
+                            "type": "array",
+                            "title": "Cuvinte de Ordonat",
+                            "items": {
+                              "type": "string",
+                              "title": "Cuvânt"
+                            }
+                          },
+                          "correctOrder": {
+                            "type": "array",
+                            "title": "Ordinea Corectă a Cuvintelor",
+                            "description": "Lista cuvintelor în ordinea corectă, așa cum apar în 'Cuvinte de Ordonat'.",
+                            "items": {
+                              "type": "string",
+                              "title": "Cuvânt în Ordine Corectă"
+                            }
+                          },
+                          "explanation": {
+                            "type": "string",
+                            "title": "Explicație Răspuns",
+                            "options": {"textarea_rows": 3}
+                          }
+                        },
+                        "required": [
+                          "question",
+                          "words",
+                          "correctOrder"
+                        ]
+                      },
+                      {
+                        "title": "Laborator Interactiv",
+                        "properties": {
+                          "type": {
+                            "const": "interactive_lab"
+                          },
+                          "title": {
+                            "type": "string",
+                            "title": "Titlu Laborator"
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Descriere Laborator",
+                            "options": {"textarea_rows": 3}
+                          },
+                          "image": {
+                            "type": "string",
+                            "title": "URL Imagine Previzualizare (opțional)",
+                            "format": "url"
+                          },
+                          "lab_files": {
+                            "type": "object",
+                            "title": "Fișiere Laborator",
+                            "properties": {
+                              "html": {
+                                "type": "string",
+                                "title": "Cod HTML",
+                                "options": {
+                                  "textarea_rows": 25,
+                                  "ace": { "theme":"ace/theme/chrome", "mode": "ace/mode/html" }
+                                }
+                              },
+                              "css": {
+                                "type": "string",
+                                "title": "Cod CSS",
+                                "options": {
+                                  "textarea_rows": 25,
+                                   "ace": { "theme":"ace/theme/chrome", "mode": "ace/mode/css" }
+                                }
+                              },
+                              "javascript": {
+                                "type": "string",
+                                "title": "Cod JavaScript",
+                                "options": {
+                                  "textarea_rows": 25,
+                                   "ace": { "theme":"ace/theme/chrome", "mode": "ace/mode/javascript" }
+                                }
+                              }
+                            },
+                            "required": [
+                              "html",
+                              "css",
+                              "javascript"
+                            ]
+                          },
+                          "guidance": {
+                            "type": "array",
+                            "title": "Ghidaj Laborator / Sarcini",
+                            "items": {
+                              "type": "string",
+                              "title": "Punct Ghidaj",
+                              "options": {"textarea_rows": 2}
+                            }
+                          },
+                           "explanation": {
+                            "type": "string",
+                            "title": "Notițe Suplimentare / Concluzii Laborator (opțional)",
+                            "options": {"textarea_rows": 3}
+                          }
+                        },
+                        "required": [
+                          "title",
+                          "lab_files"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "xp",
+                "exercises"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "lessons"
+        ]
+      }
+    },
+    "badges": {
+      "type": "array",
+      "title": "Recompense (Badges)",
+      "items": {
+        "type": "object",
+        "title": "Recompensă",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID Recompensă"
+          },
+          "name": {
+            "type": "string",
+            "title": "Nume Recompensă"
+          },
+          "description": {
+            "type": "string",
+            "title": "Descriere",
+            "options": {"textarea_rows": 3}
+          },
+          "icon_path": {
+            "type": "string",
+            "title": "Cale Iconiță SVG (opțional)",
+            "format": "url"
+          },
+          "icon_class_fallback": {
+            "type": "string",
+            "title": "Clasă Iconiță FontAwesome (fallback)"
+          },
+          "conditionType": {
+            "type": "string",
+            "title": "Tip Condiție",
+            "enum": [
+              "xp",
+              "streak",
+              "lessons_completed",
+              "module_completed"
+            ]
+          },
+          "value": {
+            "title": "Valoare Condiție",
+            "description": "Număr (pentru xp, streak, lessons_completed) sau ID Modul (pentru module_completed)",
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "moduleId": {
+            "type": "string",
+            "title": "ID Modul Specific (opțional)",
+            "description": "Folosit dacă conditionType este lessons_completed și se referă la lecții dintr-un modul anume."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "conditionType",
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "modules",
+    "badges"
+  ]
+}

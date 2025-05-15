@@ -3,15 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let appState = {
         xp: 0,
         streak: 0,
-        lastCompletionDate: null, 
+        lastCompletionDate: null,
         currentTheme: 'light',
         currentModuleId: null,
         currentLessonId: null,
         currentExerciseIndex: 0,
-        lessonsData: null, 
-        lessonProgress: {}, 
+        lessonsData: null,
+        lessonProgress: {},
         earnedBadges: [],
-        isSidenavOpen: false 
+        isSidenavOpen: false
     };
 
     // --- DOM ELEMENTS ---
@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedbackExplanation = document.getElementById('feedback-explanation');
     const nextExerciseButton = document.getElementById('next-exercise-button');
     const backToDashboardButton = document.getElementById('back-to-dashboard');
-    const badgesContainer = document.getElementById('badges-container'); // Containerul principal pentru recompense de pe dashboard
+    const badgesContainer = document.getElementById('badges-container');
+    const searchInput = document.getElementById('search-input'); // Elementul de căutare
 
     // Sidenav Elements
     const sidenavElement = document.getElementById('sidenav');
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             appState.lessonProgress = parsedState.lessonProgress || {};
             appState.earnedBadges = parsedState.earnedBadges || [];
         }
-        updateStreak(); 
+        updateStreak();
     }
 
     // --- SIDENAV MANAGEMENT ---
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!sidenavElement || !overlayElement) return;
         sidenavElement.classList.add('open');
         overlayElement.classList.add('active');
-        document.body.classList.add('sidenav-active'); 
+        document.body.classList.add('sidenav-active');
         sidenavToggle.setAttribute('aria-expanded', 'true');
         appState.isSidenavOpen = true;
     }
@@ -90,11 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleSidenavLinkClick(event) {
         const link = event.target.closest('.sidenav-link');
         if (!link || link.id === 'sidenav-theme-toggle' || link.getAttribute('href') === '#logout') {
-             // Nu închide pentru schimbarea temei sau logout, acestea pot avea acțiuni proprii
             if (link && link.getAttribute('href') === '#logout') {
                 event.preventDefault();
-                console.log("Logout action triggered"); 
-                // Aici poți adăuga logica de logout (ex: ștergere localStorage, redirectare)
+                console.log("Logout action triggered");
                 // localStorage.removeItem('eduAppState'); // Exemplu
                 // window.location.reload(); // Exemplu
                 closeSidenav();
@@ -102,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        event.preventDefault(); 
+        event.preventDefault();
 
         const viewId = link.dataset.view;
         if (viewId) {
@@ -111,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.add('active-sidenav-link');
         }
         
-        // Închide Sidenav-ul doar dacă nu suntem pe un ecran mare unde Sidenav-ul e persistent
         if (window.innerWidth < 992) {
             closeSidenav();
         }
@@ -120,18 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- THEME MANAGEMENT ---
     function updateThemeToggleIcons() {
         const isLightTheme = appState.currentTheme === 'light';
-        const iconClass = isLightTheme ? 'fa-moon' : 'fa-sun'; 
+        const iconClass = isLightTheme ? 'fa-moon' : 'fa-sun';
         
         themeToggleButton.innerHTML = `<i class="fas ${iconClass}"></i>`;
         themeToggleButton.setAttribute('aria-label', isLightTheme ? 'Activează tema întunecată' : 'Activează tema deschisă');
 
         if (sidenavThemeToggle) {
-            const sidenavIcon = sidenavThemeToggle.querySelector('i');
             const sidenavText = sidenavThemeToggle.querySelector('span');
-            if (sidenavIcon) {
-                // Păstrează iconița de paletă, dar poți schimba altceva dacă dorești
-                // sidenavIcon.className = `fas ${iconClass}`; 
-            }
             if (sidenavText) {
                  sidenavText.textContent = isLightTheme ? ' Activează Întunecat' : ' Activează Deschis';
             }
@@ -142,12 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyTheme() {
-        document.body.className = ''; 
+        document.body.className = '';
         document.body.classList.add(appState.currentTheme + '-theme');
-        if(appState.isSidenavOpen && window.innerWidth < 992) { 
-            document.body.classList.add('sidenav-active'); // Pentru blocare scroll mobil
+        if(appState.isSidenavOpen && window.innerWidth < 992) {
+            document.body.classList.add('sidenav-active');
         } else if (appState.isSidenavOpen && window.innerWidth >= 992) {
-            document.body.classList.add('sidenav-active'); // Pentru push content desktop
+            document.body.classList.add('sidenav-active');
         }
         updateThemeToggleIcons();
         saveState();
@@ -169,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (lastDate.toDateString() === yesterday.toDateString()) {
                 // ok
             } else if (lastDate.toDateString() !== today) {
-                appState.streak = 0; 
+                appState.streak = 0;
             }
         }
         updateUI();
@@ -185,13 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
                  if(lastDate.toDateString() === yesterday.toDateString()){
                     appState.streak++;
                  } else {
-                    appState.streak = 1; 
+                    appState.streak = 1;
                  }
             } else {
-                 appState.streak = 1; 
+                 appState.streak = 1;
             }
             appState.lastCompletionDate = today;
-            checkAndAwardBadges(); 
+            checkAndAwardBadges();
         }
         saveState();
         updateUI();
@@ -202,8 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateUI() {
         if (xpDisplay) xpDisplay.textContent = `XP: ${appState.xp}`;
         if (streakDisplay) streakDisplay.innerHTML = `<i class="fas fa-fire"></i> ${appState.streak}`;
-        if (document.getElementById('dashboard-view').classList.contains('active-view')) {
-             renderBadgesOnDashboard(); // Re-randează badge-urile doar dacă dashboard-ul e vizibil
+        if (dashboardView && dashboardView.classList.contains('active-view')) {
+             renderBadgesOnDashboard();
         }
     }
 
@@ -215,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             appState.lessonsData = await response.json();
-            renderDashboard(); 
+            renderDashboard(); // Afișează tot la început
             sidenavLinks.forEach(link => {
                 link.classList.remove('active-sidenav-link');
                 if(link.dataset.view === 'dashboard-view') {
@@ -229,26 +222,77 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- RENDERING FUNCTIONS ---
-    function renderDashboard() {
+    function renderDashboard(searchTerm = '') {
         if (!modulesContainer) return;
         modulesContainer.innerHTML = ''; 
+        
+        const modulesTitleElement = document.createElement('h3');
+        modulesTitleElement.textContent = "Module Disponibile";
+        modulesContainer.appendChild(modulesTitleElement);
+
         if (!appState.lessonsData || !appState.lessonsData.modules) {
-            modulesContainer.innerHTML = "<p>Nu există module disponibile.</p>";
+            const noModulesMessage = document.createElement('p');
+            noModulesMessage.textContent = "Nu există module disponibile.";
+            modulesContainer.appendChild(noModulesMessage);
             return;
         }
 
-        appState.lessonsData.modules.forEach(module => {
+        const lowerSearchTerm = searchTerm.toLowerCase().trim();
+        let modulesToDisplay = appState.lessonsData.modules;
+        let foundResults = false;
+
+        if (lowerSearchTerm) {
+            modulesToDisplay = appState.lessonsData.modules.map(module => {
+                const moduleTitleMatch = module.title.toLowerCase().includes(lowerSearchTerm);
+                const moduleDescriptionMatch = module.description.toLowerCase().includes(lowerSearchTerm);
+                
+                const matchingLessons = module.lessons.filter(lesson => 
+                    lesson.title.toLowerCase().includes(lowerSearchTerm) ||
+                    (lesson.short_description && lesson.short_description.toLowerCase().includes(lowerSearchTerm))
+                );
+
+                if (moduleTitleMatch || moduleDescriptionMatch || matchingLessons.length > 0) {
+                    foundResults = true;
+                    return {
+                        ...module,
+                        lessons: (moduleTitleMatch || moduleDescriptionMatch) ? module.lessons : matchingLessons
+                    };
+                }
+                return null;
+            }).filter(module => module !== null);
+        } else {
+            foundResults = modulesToDisplay.length > 0;
+        }
+
+        if (!foundResults && lowerSearchTerm) {
+            const noResultsMessage = document.createElement('p');
+            noResultsMessage.className = 'no-search-results';
+            noResultsMessage.textContent = `Niciun rezultat găsit pentru "${searchTerm}".`;
+            modulesContainer.appendChild(noResultsMessage);
+        } else if (modulesToDisplay.length === 0 && !lowerSearchTerm) {
+             const noModulesMessage = document.createElement('p');
+            noModulesMessage.textContent = "Nu există module disponibile.";
+            modulesContainer.appendChild(noModulesMessage);
+        }
+
+        modulesToDisplay.forEach(module => {
             const moduleElement = document.createElement('div');
             moduleElement.className = 'module';
             const moduleIconHtml = module.icon ? `<i class="${module.icon}"></i>` : '';
-            moduleElement.innerHTML = `
-                <h3>${moduleIconHtml} ${module.title}</h3>
-                <p>${module.description}</p>
-                <div class="lesson-cards-container" id="module-lessons-${module.id}"></div>
-            `;
-            modulesContainer.appendChild(moduleElement);
+            
+            const moduleHeader = document.createElement('h3');
+            moduleHeader.innerHTML = `${moduleIconHtml} ${module.title}`;
+            
+            const moduleDescription = document.createElement('p');
+            moduleDescription.textContent = module.description;
 
-            const lessonCardsContainer = document.getElementById(`module-lessons-${module.id}`);
+            moduleElement.appendChild(moduleHeader);
+            moduleElement.appendChild(moduleDescription);
+            
+            const lessonCardsContainer = document.createElement('div');
+            lessonCardsContainer.className = 'lesson-cards-container';
+            lessonCardsContainer.id = `module-lessons-${module.id}`;
+            
             module.lessons.forEach(lesson => {
                 const lessonCard = document.createElement('div');
                 lessonCard.className = 'lesson-card';
@@ -268,31 +312,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 lessonCard.addEventListener('click', () => startLesson(module.id, lesson.id));
                 lessonCardsContainer.appendChild(lessonCard);
             });
+            moduleElement.appendChild(lessonCardsContainer);
+            modulesContainer.appendChild(moduleElement);
         });
-        renderBadgesOnDashboard(); 
+
+        if (dashboardView && dashboardView.classList.contains('active-view')) {
+            renderBadgesOnDashboard();
+        }
     }
 
     function renderBadgesOnDashboard() {
-        if (!badgesContainer) return; // Verifică dacă #badges-container există
+        if (!badgesContainer) return;
         const badgeListContainer = badgesContainer.querySelector('.badge-list');
-        if (!badgeListContainer) { 
-            console.warn("Containerul .badge-list nu a fost găsit în #badges-container. Se creează unul nou.");
-            // Acest fallback poate fi util, dar ideal ar fi ca structura HTML să fie corectă
-            // const newBadgeList = document.createElement('div');
-            // newBadgeList.className = 'badge-list';
-            // badgesContainer.appendChild(newBadgeList);
-            // badgeListContainer = newBadgeList;
-            // Dacă nu îl găsește, e o problemă de HTML, mai bine nu continuăm.
-            return; 
+        if (!badgeListContainer) {
+            console.warn("Containerul .badge-list nu a fost găsit în #badges-container.");
+            return;
         }
-        badgeListContainer.innerHTML = ''; 
+        badgeListContainer.innerHTML = '';
 
         if (!appState.lessonsData || !appState.lessonsData.badges) {
             badgeListContainer.innerHTML = "<p>Nicio recompensă de afișat.</p>";
             return;
         }
         
-        const badgesToDisplay = appState.lessonsData.badges; 
+        const badgesToDisplay = appState.lessonsData.badges;
 
         if (badgesToDisplay.length === 0) {
             badgeListContainer.innerHTML = "<p>Nicio recompensă disponibilă momentan.</p>";
@@ -306,24 +349,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if(isEarned) badgeElement.classList.add('earned');
 
             badgeElement.innerHTML = `
-                <i class="${badgeData.icon_class || 'fas fa-medal'}"></i>
+                <i class="${badgeData.icon_class_fallback || 'fas fa-medal'}"></i>
                 <span class="badge-name">${badgeData.name}</span>
             `;
             if (isEarned) {
                  badgeElement.title = `${badgeData.name}: ${badgeData.description}`;
             } else {
                  badgeElement.title = `Blocat: ${badgeData.name} - ${badgeData.description}`;
-                 badgeElement.style.opacity = "0.6"; 
+                 badgeElement.style.opacity = "0.6";
             }
             badgeListContainer.appendChild(badgeElement);
         });
     }
 
-    // Funcție pentru a randarea badge-urilor în view-ul dedicat "badges-view"
     function renderAllBadgesView() {
         const allBadgesListContainer = document.querySelector('#badges-view .all-badges-list-container');
         if (!allBadgesListContainer) return;
-        allBadgesListContainer.innerHTML = ''; // Clear previous
+        allBadgesListContainer.innerHTML = '';
 
         if (!appState.lessonsData || !appState.lessonsData.badges) {
             allBadgesListContainer.innerHTML = "<p>Nicio recompensă de afișat.</p>";
@@ -336,18 +378,17 @@ document.addEventListener('DOMContentLoaded', () => {
             allBadgesListContainer.innerHTML = "<p>Nicio recompensă disponibilă momentan.</p>";
             return;
         }
-        // Folosește un stil similar cu .badge-list pentru coerență
         const listElement = document.createElement('div');
-        listElement.className = 'badge-list'; // Refolosește stilul .badge-list
+        listElement.className = 'badge-list';
 
         badgesToDisplay.forEach(badgeData => {
             const badgeElement = document.createElement('div');
-            badgeElement.className = 'badge'; // Refolosește stilul .badge
+            badgeElement.className = 'badge';
             const isEarned = appState.earnedBadges.includes(badgeData.id);
             if(isEarned) badgeElement.classList.add('earned');
 
             badgeElement.innerHTML = `
-                <i class="${badgeData.icon_class || 'fas fa-medal'}"></i>
+                <i class="${badgeData.icon_class_fallback || 'fas fa-medal'}"></i>
                 <span class="badge-name">${badgeData.name}</span>
                 ${isEarned ? `<p class="badge-description-small">${badgeData.description}</p>` : `<p class="badge-description-small"><em>Blocat</em></p>`}
             `;
@@ -367,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
             targetView.classList.add('active-view');
         } else {
             console.warn(`View-ul cu ID-ul "${viewId}" nu a fost găsit.`);
-            document.getElementById('dashboard-view').classList.add('active-view'); // Fallback
+            if(dashboardView) dashboardView.classList.add('active-view'); 
         }
         
         sidenavLinks.forEach(link => {
@@ -378,7 +419,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (viewId === 'dashboard-view') {
-            renderDashboard();
+            const currentSearchTerm = searchInput ? searchInput.value : '';
+            renderDashboard(currentSearchTerm);
         } else if (viewId === 'badges-view') {
             renderAllBadgesView();
         }
@@ -408,21 +450,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const lesson = getCurrentLesson();
         if (!exercise || !lesson) {
             console.error("Exercițiu sau lecție negăsită. Se revine la dashboard.");
-            finishLesson(); 
+            finishLesson();
             return;
         }
 
         lessonTitleElement.textContent = lesson.title;
-        lessonContentElement.innerHTML = ''; 
+        lessonContentElement.innerHTML = '';
         feedbackContainer.style.display = 'none';
-        feedbackContainer.className = ''; 
+        feedbackContainer.className = '';
         nextExerciseButton.style.display = 'none';
-        nextExerciseButton.disabled = false; 
+        nextExerciseButton.disabled = false;
 
         if (!appState.lessonProgress[lesson.id]) {
-            appState.lessonProgress[lesson.id] = { 
-                completed: false, 
-                score: 0, 
+            appState.lessonProgress[lesson.id] = {
+                completed: false,
+                score: 0,
                 answers: Array(lesson.exercises.length).fill(null).map(() => ({ answer: null, correct: false, xpAwarded: false }))
             };
         }
@@ -449,7 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     exerciseHtml += `<img src="${exercise.image}" alt="Întrebare vizuală" class="exercise-image" onerror="this.style.display='none'; console.warn('Imagine negăsită: ${exercise.image}')">`;
                 }
                 exerciseHtml += `<div class="options-container">`;
-                exercise.options.forEach((option) => { 
+                exercise.options.forEach((option) => {
                     exerciseHtml += `<button class="option-button" data-value="${option.value !== undefined ? option.value : option.text}">${option.text}</button>`;
                 });
                 exerciseHtml += `</div>`;
@@ -476,15 +518,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const fillBlankInput = document.getElementById('fill-blank-input');
                 const submitFillBlankButton = document.getElementById('submit-fill-blank');
                 
-                submitFillBlankButton.addEventListener('click', () => {
-                    const userAnswer = fillBlankInput.value.trim();
-                    handleAnswer(userAnswer);
-                });
-                 fillBlankInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        submitFillBlankButton.click();
-                    }
-                });
+                if(submitFillBlankButton) {
+                    submitFillBlankButton.addEventListener('click', () => {
+                        const userAnswer = fillBlankInput.value.trim();
+                        handleAnswer(userAnswer);
+                    });
+                }
+                if(fillBlankInput) {
+                     fillBlankInput.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            submitFillBlankButton.click();
+                        }
+                    });
+                }
                 break;
             
             case 'drag_drop_words':
@@ -506,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (typeof Sortable !== 'undefined') {
                     new Sortable(sourceContainer, {
-                        group: 'sharedDragDrop', 
+                        group: 'sharedDragDrop',
                         animation: 150,
                         ghostClass: 'sortable-ghost',
                         chosenClass: 'sortable-chosen',
@@ -528,9 +574,126 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(submitDragDropButton) {
                     submitDragDropButton.addEventListener('click', () => {
                         const droppedWords = Array.from(targetContainer.children).map(el => el.textContent.trim());
-                        handleAnswer(droppedWords); 
+                        handleAnswer(droppedWords);
                     });
                 }
+                break;
+
+            case 'interactive_lab':
+                exerciseHtml += `
+                    <div class="lab-description">
+                        <h4>${exercise.title || 'Laborator Interactiv'}</h4>
+                        <p>${exercise.description || 'Explorați acest laborator interactiv.'}</p>
+                    </div>`;
+
+                if (exercise.lab_files && exercise.lab_files.html && exercise.lab_files.css && exercise.lab_files.javascript) {
+                    exerciseHtml += `
+                        <div class="open-lab-button-container" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+                            <button id="open-interactive-lab-button" class="button-like button-primary">
+                                <i class="fas fa-external-link-alt"></i> Deschide Laboratorul într-un Tab Nou
+                            </button>
+                        </div>`;
+                } else {
+                    exerciseHtml += "<p>Fișierele laboratorului nu sunt configurate corect (lipsește HTML, CSS sau JS).</p>";
+                }
+
+                if (exercise.guidance && exercise.guidance.length > 0) {
+                    exerciseHtml += `<div class="lab-guidance">
+                                        <h4>Ghid de Utilizare / Întrebări:</h4>
+                                        <ul>`;
+                    exercise.guidance.forEach(guide => {
+                        exerciseHtml += `<li>${guide}</li>`;
+                    });
+                    exerciseHtml += `        </ul>
+                                     </div>`;
+                }
+                lessonContentElement.innerHTML = exerciseHtml;
+
+                if (exercise.lab_files && exercise.lab_files.html && exercise.lab_files.css && exercise.lab_files.javascript) {
+                    const openLabButton = document.getElementById('open-interactive-lab-button');
+                    if (openLabButton) {
+                        openLabButton.addEventListener('click', () => {
+                            const labHTMLSourceInner = exercise.lab_files.html;
+                            const labCSSInner = exercise.lab_files.css;
+                            const labJSInner = exercise.lab_files.javascript;
+
+                            let bodyContentInner = labHTMLSourceInner;
+                            const bodyStartTagInner = '<body>';
+                            const bodyEndTagInner = '</body>';
+                            const bodyStartIndexInner = labHTMLSourceInner.toLowerCase().indexOf(bodyStartTagInner);
+                            const bodyEndIndexInner = labHTMLSourceInner.toLowerCase().lastIndexOf(bodyEndTagInner);
+                             if (bodyStartIndexInner !== -1 && bodyEndIndexInner !== -1 && bodyStartIndexInner < bodyEndIndexInner) {
+                                bodyContentInner = labHTMLSourceInner.substring(bodyStartIndexInner + bodyStartTagInner.length, bodyEndIndexInner);
+                            }
+
+                            let headScriptsInner = '';
+                            const headStartTagInner = '<head>';
+                            const headEndTagInner = '</head>';
+                            const headStartIndexInner = labHTMLSourceInner.toLowerCase().indexOf(headStartTagInner);
+                            const headEndIndexInner = labHTMLSourceInner.toLowerCase().indexOf(headEndTagInner);
+                            if (headStartIndexInner !== -1 && headEndIndexInner !== -1 && headStartIndexInner < headEndIndexInner) {
+                                const headContentInner = labHTMLSourceInner.substring(headStartIndexInner + headStartTagInner.length, headEndIndexInner);
+                                const scriptRegexInner = /<script\s+[^>]*src="([^"]+)"[^>]*><\/script>/gi;
+                                let matchInner;
+                                while ((matchInner = scriptRegexInner.exec(headContentInner)) !== null) {
+                                     if (matchInner[1].startsWith('http') || matchInner[1].startsWith('//')) {
+                                        headScriptsInner += matchInner[0] + '\n';
+                                    }
+                                }
+                            }
+
+                            const fullLabHtml = `
+                                <!DOCTYPE html>
+                                <html lang="ro">
+                                <head>
+                                    <meta charset="UTF-8">
+                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                    <title>${exercise.title || 'Laborator Interactiv'}</title>
+                                    ${headScriptsInner}
+                                    <style>
+                                        body { margin: 0; padding: 0; overflow: auto; font-family: 'Nunito', sans-serif; line-height: 1.5; }
+                                        ${labCSSInner}
+                                    </style>
+                                </head>
+                                <body>
+                                    ${bodyContentInner}
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', () => {
+                                            try {
+                                                ${labJSInner}
+                                            } catch (e) {
+                                                console.error("Eroare la execuția JS-ului din laborator:", e);
+                                                const errorDiv = document.createElement('div');
+                                                errorDiv.style.color = 'red';
+                                                errorDiv.style.backgroundColor = 'white';
+                                                errorDiv.style.padding = '20px';
+                                                errorDiv.style.border = '1px solid red';
+                                                errorDiv.style.margin = '10px';
+                                                errorDiv.textContent = 'A apărut o eroare la încărcarea scriptului laboratorului: ' + e.message + '. Verificați consola (F12) pentru detalii.';
+                                                document.body.insertBefore(errorDiv, document.body.firstChild);
+                                            }
+                                        });
+                                    <\/script> 
+                                </body>
+                                </html>`;
+
+                            const blob = new Blob([fullLabHtml], { type: 'text/html' });
+                            const url = URL.createObjectURL(blob);
+                            
+                            const labWindow = window.open(url, '_blank');
+                            if (labWindow) {
+                                labWindow.focus();
+                            } else {
+                                alert('Vă rugăm să permiteți ferestrele pop-up pentru a deschide laboratorul.');
+                            }
+                        });
+                    }
+                }
+                
+                nextExerciseButton.textContent = "Am terminat explorarea";
+                nextExerciseButton.style.display = 'block';
+                nextExerciseButton.disabled = false;
+                nextExerciseButton.onclick = () => proceedToNextExercise();
                 break;
 
             default:
@@ -548,7 +711,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let isCorrect = false;
 
         lessonContentElement.querySelectorAll('button:not(#next-exercise-button):not(.option-button.selected), input').forEach(el => el.disabled = true);
-        // Butoanele option-button care nu sunt selectate devin disabled, cel selectat rămâne enabled dar stilizat
         lessonContentElement.querySelectorAll('.option-button:not(.selected)').forEach(btn => btn.disabled = true);
 
 
@@ -563,11 +725,9 @@ document.addEventListener('DOMContentLoaded', () => {
             isCorrect = userAnswer.length === exercise.correctOrder.length && 
                         userAnswer.every((word, index) => word.toLowerCase() === exercise.correctOrder[index].toLowerCase());
         } else if (exercise.type === 'multiple_choice') {
-            isCorrect = userAnswer.toLowerCase() === String(exercise.answer).toLowerCase(); 
+            isCorrect = userAnswer.toLowerCase() === String(exercise.answer).toLowerCase();
         } else if (exercise.type === 'fill_in_the_blank') {
              isCorrect = exercise.answer.some(ans => ans.toLowerCase() === userAnswer.toLowerCase());
-        } else { // Pentru tip 'info' sau necunoscut, nu se aplică corect/greșit
-            isCorrect = true; // Sau false, depinde cum vrei să tratezi
         }
 
 
@@ -575,14 +735,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lessonProgress && lessonProgress.answers && lessonProgress.answers[appState.currentExerciseIndex]) {
             lessonProgress.answers[appState.currentExerciseIndex].answer = userAnswer;
             lessonProgress.answers[appState.currentExerciseIndex].correct = isCorrect;
-        } else if (lessonProgress) {
-            // Acest caz nu ar trebui să apară dacă inițializarea e corectă
-             console.warn("Structura lessonProgress.answers[index] lipsește.");
         }
 
 
         feedbackContainer.style.display = 'block';
-        feedbackContainer.className = 'feedback-visible'; 
+        feedbackContainer.className = 'feedback-visible';
         
         if (isCorrect) {
             feedbackText.innerHTML = `<i class="fas fa-check-circle"></i> Corect!`;
@@ -591,7 +748,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (exercise.type !== 'info' && lessonProgress && lessonProgress.answers[appState.currentExerciseIndex] && !lessonProgress.answers[appState.currentExerciseIndex].xpAwarded) {
                 lessonProgress.answers[appState.currentExerciseIndex].xpAwarded = true;
             }
-            if (anime) {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: feedbackContainer,
                     scale: [0.9, 1],
@@ -604,7 +761,7 @@ document.addEventListener('DOMContentLoaded', () => {
             feedbackText.innerHTML = `<i class="fas fa-times-circle"></i> Greșit.`;
             feedbackContainer.classList.add('incorrect');
             feedbackContainer.classList.remove('correct');
-             if (anime) {
+             if (typeof anime !== 'undefined') {
                 anime({
                     targets: feedbackContainer,
                     translateX: [{value: -6, duration:50}, {value: 6, duration:50}, {value: -4, duration:50}, {value: 4, duration:50}, {value: 0, duration:50}],
@@ -618,9 +775,9 @@ document.addEventListener('DOMContentLoaded', () => {
         nextExerciseButton.textContent = "Continuă";
         nextExerciseButton.style.display = 'block';
         nextExerciseButton.disabled = false;
-        nextExerciseButton.onclick = () => proceedToNextExercise(); 
+        nextExerciseButton.onclick = () => proceedToNextExercise();
 
-        saveState(); 
+        saveState();
     }
 
     function proceedToNextExercise() {
@@ -638,17 +795,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function finishLesson() {
         const lesson = getCurrentLesson();
         if (!lesson) {
-            showView('dashboard-view'); 
+            showView('dashboard-view');
             return;
         }
 
         const lessonProgress = appState.lessonProgress[lesson.id];
-        if (lessonProgress && !lessonProgress.completed) { 
+        if (lessonProgress && !lessonProgress.completed) {
             let correctAnswersCount = 0;
             let nonInfoExercisesCount = 0;
 
             lesson.exercises.forEach((ex, index) => {
-                if (ex.type !== 'info') {
+                if (ex.type !== 'info' && ex.type !== 'interactive_lab') { // interactive_lab nu are "corectitudine" automată
                     nonInfoExercisesCount++;
                     if (lessonProgress.answers[index]?.correct) {
                         correctAnswersCount++;
@@ -661,17 +818,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (canComplete) {
                  appState.xp += lesson.xp;
                  lessonProgress.completed = true;
-                 incrementStreakOnLessonComplete(); 
+                 incrementStreakOnLessonComplete();
             }
-            lessonProgress.score = correctAnswersCount; 
-            checkAndAwardBadges(); 
+            lessonProgress.score = correctAnswersCount;
+            checkAndAwardBadges();
         }
         
         saveState();
-        updateUI(); 
-        showView('dashboard-view'); 
+        updateUI();
+        showView('dashboard-view');
         
-        if (lessonProgress?.completed && anime) { 
+        if (lessonProgress?.completed && typeof anime !== 'undefined' && xpDisplay && streakDisplay) {
              const initialXP = parseInt(xpDisplay.textContent.split(':')[1].trim()) - (lessonProgress.completed ? lesson.xp : 0);
              anime({
                 targets: xpDisplay,
@@ -680,7 +837,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 easing: 'easeOutQuad',
                 duration: 800
             });
-            if (appState.streak > 0) {
+            if (appState.streak > 0 && streakDisplay.querySelector('i')) {
                 anime({
                     targets: streakDisplay.querySelector('i'),
                     scale: [1, 1.5, 1],
@@ -696,7 +853,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!appState.lessonsData || !appState.lessonsData.badges) return;
 
         appState.lessonsData.badges.forEach(badge => {
-            if (appState.earnedBadges.includes(badge.id)) return; 
+            if (appState.earnedBadges.includes(badge.id)) return;
 
             let conditionMet = false;
             switch (badge.conditionType) {
@@ -710,6 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const completedLessonsCount = Object.values(appState.lessonProgress).filter(lp => lp.completed).length;
                     if (completedLessonsCount >= badge.value) conditionMet = true;
                     break;
+                // Adaugă aici și alte tipuri de condiții dacă e nevoie (ex: module_completed)
             }
 
             if (conditionMet) {
@@ -718,10 +876,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         saveState();
-        if (document.getElementById('dashboard-view').classList.contains('active-view')) {
+        if (dashboardView && dashboardView.classList.contains('active-view')) {
             renderBadgesOnDashboard();
         }
-        if (document.getElementById('badges-view').classList.contains('active-view')) {
+        if (document.getElementById('badges-view') && document.getElementById('badges-view').classList.contains('active-view')) {
             renderAllBadgesView();
         }
     }
@@ -734,17 +892,17 @@ document.addEventListener('DOMContentLoaded', () => {
         notification.className = 'badge-notification';
         notification.innerHTML = `
             <h3>Felicitări! Ai câștigat o recompensă!</h3>
-            <i class="${badge.icon_class || 'fas fa-award'}"></i>
+            <i class="${badge.icon_class_fallback || 'fas fa-award'}"></i>
             <h4>${badge.name}</h4>
             <p>${badge.description}</p>
             <button id="close-badge-notification" class="button-like">Minunat!</button>
         `;
         document.body.appendChild(notification);
         
-        if(anime) {
+        if(typeof anime !== 'undefined') {
             anime({
                 targets: notification,
-                translateY: ['-150%', '-50%'], 
+                translateY: ['-150%', '-50%'],
                 scale: [0.7, 1],
                 opacity: [0,1],
                 duration: 600,
@@ -754,7 +912,7 @@ document.addEventListener('DOMContentLoaded', () => {
             notification.querySelector('#close-badge-notification').onclick = () => {
                  anime({
                     targets: notification,
-                    translateY: ['-50%', '100%'], 
+                    translateY: ['-50%', '100%'],
                     opacity: [1,0],
                     duration: 400,
                     easing: 'easeInExpo',
@@ -768,9 +926,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INITIALIZATION ---
     function init() {
-        loadState(); 
-        applyTheme(); 
-        loadLessonsData(); 
+        loadState();
+        applyTheme();
+        loadLessonsData();
 
         if (sidenavToggle) sidenavToggle.addEventListener('click', openSidenav);
         if (closeSidenavButton) closeSidenavButton.addEventListener('click', closeSidenav);
@@ -797,6 +955,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 showView('dashboard-view');
             });
         }
+        
+        if (searchInput) {
+            searchInput.addEventListener('input', (event) => {
+                const searchTerm = event.target.value;
+                renderDashboard(searchTerm); 
+            });
+        }
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && appState.isSidenavOpen) {
@@ -804,9 +969,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Sincronizează starea inițială a sidenav-ului pe desktop dacă e setat să fie deschis by default
-        if (window.innerWidth >= 992 && sidenavElement && sidenavElement.classList.contains('open-desktop-default')) { // Adaugă această clasă în HTML dacă vrei default deschis
-            openSidenav(); // Sau doar aplică clasa .sidenav-active pe body
+        if (window.innerWidth >= 992 && sidenavElement && sidenavElement.classList.contains('open-desktop-default')) {
+            openSidenav();
             document.body.classList.add('sidenav-active');
         }
     }

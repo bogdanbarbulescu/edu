@@ -1,154 +1,200 @@
 {
   "modules": [
+
     {
-      "id": "dc_circuits",
-      "title": "Electronica: Curent Continuu",
-      "description": "Fundamentele circuitelor de curent continuu, legea lui Ohm și legile lui Kirchhoff.",
-      "icon": "fas fa-battery-full",
+      "id": "ac_circuits_fundamentals",
+      "title": "Electronica: Circuite de Curent Alternativ",
+      "description": "Înțelege principiile fundamentale ale circuitelor de curent alternativ, de la semnale sinusoidale la analiza RLC și sisteme trifazate.",
+      "icon": "fas fa-wave-square",
       "lessons": [
         {
-          "id": "dc_lesson1_ohm",
-          "title": "Legea lui Ohm și Concepte de Bază",
-          "short_description": "Înțelege tensiunea, curentul, rezistența și relația dintre ele.",
-          "estimated_time": "10 min",
-          "xp": 15,
-          "exercises": [
-            {
-              "type": "info",
-              "text": "Curentul continuu (DC) este un flux unidirecțional de sarcină electrică. Mărimile fundamentale sunt: Tensiunea (U, măsurată în Volți - V), Curentul (I, măsurat în Amperi - A) și Rezistența (R, măsurată în Ohmi - Ω).",
-              "image": "assets/images/dc_circuit_basics.png"
-            },
-            {
-              "type": "info",
-              "text": "Legea lui Ohm stabilește relația dintre aceste mărimi: U = I * R. Aceasta înseamnă că tensiunea la bornele unui rezistor este direct proporțională cu curentul care îl străbate și cu valoarea rezistenței sale.",
-              "image": "assets/images/ohm_law_triangle.png"
-            },
-            {
-              "type": "multiple_choice",
-              "question": "Dacă tensiunea aplicată unui rezistor de 5 Ω este de 10 V, care este valoarea curentului care îl parcurge?",
-              "options": [
-                {"text": "0.5 A"},
-                {"text": "2 A"},
-                {"text": "5 A"},
-                {"text": "50 A"}
-              ],
-              "answer": "2 A",
-              "explanation": "Folosind Legea lui Ohm, I = U / R = 10 V / 5 Ω = 2 A."
-            },
-            {
-              "type": "fill_in_the_blank",
-              "question": "Completează spațiul liber: Dacă un curent de 3 A parcurge un rezistor și produce o cădere de tensiune de 12 V, rezistența este de __ Ω.",
-              "beforeText": "Dacă un curent de 3 A parcurge un rezistor și produce o cădere de tensiune de 12 V, rezistența este de ",
-              "afterText": " Ω.",
-              "answer": ["4"],
-              "placeholder": "valoare",
-              "explanation": "Din Legea lui Ohm, R = U / I = 12 V / 3 A = 4 Ω."
-            }
-          ]
-        },
-        {
-          "id": "dc_lesson2_kirchhoff",
-          "title": "Legile lui Kirchhoff",
-          "short_description": "Aplicarea legii nodurilor (KCL) și legii ochiurilor (KVL) în circuite DC.",
+          "id": "ac_lesson1_sinusoidal_phasors",
+          "title": "Semnale Sinusoidale și Reprezentarea Fazorială",
+          "short_description": "Parametrii semnalelor AC (amplitudine, frecvență, fază, valoare efectivă) și utilizarea fazorilor.",
           "estimated_time": "12 min",
           "xp": 20,
           "exercises": [
             {
               "type": "info",
-              "text": "Legile lui Kirchhoff sunt fundamentale pentru analiza circuitelor electrice.\nLegea I (Legea Nodurilor - KCL): Suma algebrică a curenților într-un nod de rețea este nulă (suma curenților care intră = suma curenților care ies).\nLegea II (Legea Ochiurilor - KVL): Suma algebrică a tensiunilor electromotoare dintr-un ochi de rețea este egală cu suma algebrică a căderilor de tensiune pe rezistoarele din acel ochi.",
-              "image": "assets/images/kirchhoff_laws_diagram.png"
+              "text": "Curentul alternativ (AC) își schimbă periodic sensul și valoarea. Cel mai comun este semnalul sinusoidal, caracterizat prin: Amplitudine (valoarea maximă Um, Im), Frecvență (f, în Hz), Perioadă (T=1/f), Pulsație (ω=2πf), Fază inițială (φ) și Valoare efectivă (RMS: U = Um/√2, I = Im/√2).",
+              "image": "assets/images/ac_module/sinusoidal_wave_parameters.png"
+            },
+            {
+              "type": "info",
+              "text": "Reprezentarea fazorială simplifică analiza circuitelor AC. O mărime sinusoidală (tensiune sau curent) poate fi reprezentată printr-un vector rotitor (fazor) în planul complex. Lungimea fazorului corespunde valorii efective (sau amplitudinii), iar unghiul său față de axa reală reprezintă faza inițială.",
+              "image": "assets/images/ac_module/phasor_representation.png"
             },
             {
               "type": "multiple_choice",
-              "question": "Într-un nod de circuit intră curenții I1 = 2A și I2 = 3A. Ce curent I3 trebuie să iasă din nod pentru a respecta KCL?",
+              "question": "Dacă un semnal sinusoidal de tensiune are o valoare maximă (amplitudine) de 100V, care este valoarea sa efectivă (RMS)?",
               "options": [
-                {"text": "1 A"},
-                {"text": "2.5 A"},
-                {"text": "5 A"},
-                {"text": "6 A"}
+                {"text": "100 V"},
+                {"text": "70.7 V"},
+                {"text": "141.4 V"},
+                {"text": "50 V"}
               ],
-              "answer": "5 A",
-              "explanation": "Conform KCL, suma curenților care intră (2A + 3A = 5A) trebuie să fie egală cu suma curenților care ies (I3). Deci I3 = 5A."
+              "answer": "70.7 V",
+              "explanation": "Valoarea efectivă (RMS) se calculează ca U_rms = U_max / √2. Deci, 100V / √2 ≈ 70.7V."
             },
             {
-                "type": "info",
-                "text": "Exemplu KVL: Într-un circuit serie cu o sursă de 10V și două rezistoare R1 și R2, tensiunea sursei este egală cu suma căderilor de tensiune pe R1 și R2 (10V = UR1 + UR2)."
+              "type": "fill_in_the_blank",
+              "question": "Pentru un semnal AC cu frecvența de 50 Hz, perioada (T) este de __ s.",
+              "beforeText": "Pentru un semnal AC cu frecvența de 50 Hz, perioada (T) este de ",
+              "afterText": " s.",
+              "answer": ["0.02"],
+              "placeholder": "valoare",
+              "explanation": "Perioada T = 1/f. Deci, T = 1 / 50 Hz = 0.02 s."
             }
           ]
-        }
-      ]
-    },
-    {
-      "id": "ac_circuits",
-      "title": "Electronica: Curent Alternativ",
-      "description": "Introducere în circuitele de curent alternativ, fazori, impedanță și putere.",
-      "icon": "fas fa-wave-square",
-      "lessons": [
+        },
         {
-          "id": "ac_lesson1_basics",
-          "title": "Parametrii Semnalului Sinusoidal",
-          "short_description": "Amplitudine, frecvență, perioadă, valoare efectivă (RMS) și fază.",
+          "id": "ac_lesson2_passive_components_impedance",
+          "title": "Componente Pasive în AC și Impedanța",
+          "short_description": "Comportamentul rezistorului, bobinei și condensatorului în AC. Reactanță și Impedanță.",
+          "estimated_time": "15 min",
+          "xp": 25,
+          "exercises": [
+            {
+              "type": "info",
+              "text": "Componentele pasive în AC:\n- Rezistor (R): Tensiunea și curentul sunt în fază. Z_R = R.\n- Bobină (L): Introduce reactanța inductivă X_L = ωL = 2πfL. Tensiunea este defazată cu 90° (π/2 rad) înaintea curentului. Z_L = jX_L.\n- Condensator (C): Introduce reactanța capacitivă X_C = 1/(ωC) = 1/(2πfC). Curentul este defazat cu 90° înaintea tensiunii. Z_C = -jX_C (sau 1/(jωC)).",
+              "image": "assets/images/ac_module/rlc_phase_diagrams.png"
+            },
+            {
+              "type": "info",
+              "text": "Impedanța (Z) este opoziția totală a unui circuit la trecerea curentului alternativ, o mărime complexă: Z = R + jX, unde R este rezistența și X este reactanța totală (X_L - X_C). Modulul impedanței |Z| = √(R² + X²). Se măsoară în Ohmi (Ω).\nAdmitanța (Y) este inversul impedanței: Y = 1/Z. Se măsoară în Siemens (S).",
+              "image": "assets/images/ac_module/impedance_triangle.png"
+            },
+            {
+              "type": "multiple_choice",
+              "question": "Cum se modifică reactanța inductivă (X_L) a unei bobine dacă frecvența curentului alternativ crește?",
+              "options": [
+                {"text": "Scade"},
+                {"text": "Crește"},
+                {"text": "Rămâne constantă"},
+                {"text": "Devine negativă"}
+              ],
+              "answer": "Crește",
+              "explanation": "Reactanța inductivă X_L = 2πfL. Dacă frecvența (f) crește, X_L crește direct proporțional."
+            },
+            {
+              "type": "fill_in_the_blank",
+              "question": "Reactanța capacitivă (X_C) a unui condensator cu capacitatea C la pulsația ω este dată de formula: 1 / (__).",
+              "beforeText": "Reactanța capacitivă (X_C) a unui condensator cu capacitatea C la pulsația ω este dată de formula: 1 / (",
+              "afterText": ").",
+              "answer": ["ωC", "omegaC"],
+              "placeholder": "expresie",
+              "explanation": "Formula reactanței capacitive este X_C = 1/(ωC)."
+            }
+          ]
+        },
+        {
+          "id": "ac_lesson3_power_rlc_resonance",
+          "title": "Puterea în AC, Circuite RLC și Rezonanță",
+          "short_description": "Puterea activă, reactivă, aparentă, factorul de putere. Analiza circuitelor RLC serie/paralel și fenomenul de rezonanță.",
+          "estimated_time": "20 min",
+          "xp": 30,
+          "exercises": [
+            {
+              "type": "info",
+              "text": "Puterea în AC:\n- Puterea Activă (P): disipată pe rezistențe (W). P = UIcos(φ).\n- Puterea Reactivă (Q): schimbată de bobine/condensatoare (VAR). Q = UIsin(φ).\n- Puterea Aparentă (S): produsul U_rms * I_rms (VA). S = UI. Relația: S² = P² + Q².\nFactorul de Putere (PF): cos(φ) = P/S. Ideal este 1.",
+              "image": "assets/images/ac_module/power_triangle_ac.png"
+            },
+            {
+              "type": "info",
+              "text": "Circuite RLC: Comportamentul depinde de valorile R, L, C și frecvență. Impedanța totală pentru un circuit RLC serie este Z = R + j(X_L - X_C).\nRezonanța apare când X_L = X_C. La rezonanță (serie), impedanța este minimă (Z=R) și curentul este maxim. Frecvența de rezonanță: f₀ = 1/(2π√(LC)).",
+              "image": "assets/images/ac_module/rlc_series_resonance.png"
+            },
+            {
+              "type": "multiple_choice",
+              "question": "Într-un circuit RLC serie la rezonanță, care este relația dintre reactanța inductivă (X_L) și reactanța capacitivă (X_C)?",
+              "options": [
+                {"text": "X_L > X_C"},
+                {"text": "X_L < X_C"},
+                {"text": "X_L = X_C"},
+                {"text": "X_L = 0"}
+              ],
+              "answer": "X_L = X_C",
+              "explanation": "Condiția de rezonanță într-un circuit RLC (serie sau paralel) este egalitatea dintre reactanța inductivă și cea capacitivă."
+            },
+            {
+                "type": "drag_drop_words",
+                "question": "Ordonează termenii pentru a defini corect Puterea Aparentă (S) în funcție de Puterea Activă (P) și Puterea Reactivă (Q):",
+                "words": ["P²", "S", "=", "√(P² + Q²)", "+ Q²"],
+                "correctOrder": ["S", "=", "√(P² + Q²)"],
+                "explanation": "Formula corectă este S = √(P² + Q²), derivată din triunghiul puterilor."
+            }
+          ]
+        },
+        {
+          "id": "ac_lesson4_passive_filters_three_phase",
+          "title": "Filtre Pasive Simple și Sisteme Trifazate (Introducere)",
+          "short_description": "Tipuri de filtre pasive (RC, RL, LC) și noțiuni de bază despre sistemele de alimentare trifazate.",
           "estimated_time": "15 min",
           "xp": 20,
           "exercises": [
             {
               "type": "info",
-              "text": "Curentul alternativ (AC) își schimbă periodic sensul. Cel mai comun este semnalul sinusoidal. Parametrii cheie sunt: Amplitudinea (valoarea maximă), Frecvența (f, în Hertz - Hz), Perioada (T = 1/f, în secunde - s), Valoarea Efectivă (RMS - Ueff = Umax / √2), Faza inițială (φ).",
-              "image": "assets/images/sinusoidal_wave_params.png"
+              "text": "Filtrele pasive simple sunt circuite realizate cu rezistoare, bobine și condensatoare care permit trecerea semnalelor într-un anumit interval de frecvențe și atenuează altele. Tipuri comune: Filtru Trece-Jos (FTJ), Filtru Trece-Sus (FTS), Filtru Trece-Bandă (FTB), Filtru Oprește-Bandă (FOB).",
+              "image": "assets/images/ac_module/passive_filters_types.png"
+            },
+            {
+              "type": "info",
+              "text": "Sistemele trifazate generează și distribuie energie electrică folosind trei tensiuni alternative de aceeași frecvență și amplitudine, dar defazate între ele cu 120°. Avantaje principale: putere instantanee totală constantă, economie de conductor. Configurații: Stea (Y) și Triunghi (Δ).",
+              "image": "assets/images/ac_module/three_phase_waveforms_star_delta.png"
             },
             {
               "type": "multiple_choice",
-              "question": "Dacă un semnal AC are o frecvență de 50 Hz, care este perioada sa?",
+              "question": "Un filtru RC serie, cu ieșirea preluată de pe condensator, acționează ca un:",
               "options": [
-                {"text": "0.01 s"},
-                {"text": "0.02 s"},
-                {"text": "50 s"},
-                {"text": "100 s"}
+                {"text": "Filtru Trece-Sus"},
+                {"text": "Filtru Trece-Jos"},
+                {"text": "Filtru Trece-Bandă"},
+                {"text": "Filtru Oprește-Bandă"}
               ],
-              "answer": "0.02 s",
-              "explanation": "Perioada T = 1/f. Deci, T = 1 / 50 Hz = 0.02 s (sau 20 ms)."
+              "answer": "Filtru Trece-Jos",
+              "explanation": "La frecvențe joase, reactanța condensatorului (XC) este mare, deci tensiunea pe condensator este mare. La frecvențe înalte, XC este mică, deci tensiunea pe condensator scade. Astfel, permite trecerea frecvențelor joase."
             },
             {
               "type": "fill_in_the_blank",
-              "question": "Valoarea efectivă (RMS) a unei tensiuni sinusoidale cu amplitudinea de 10V este aproximativ __ V.",
-              "beforeText": "Valoarea efectivă (RMS) a unei tensiuni sinusoidale cu amplitudinea de 10V este aproximativ ",
-              "afterText": " V.",
-              "answer": ["7.07"],
-              "placeholder": "valoare",
-              "explanation": "Ueff = Umax / √2 = 10V / 1.414 ≈ 7.07V."
+              "question": "Într-un sistem trifazat, defazajul dintre tensiunile succesive este de __ grade electrice.",
+              "beforeText": "Într-un sistem trifazat, defazajul dintre tensiunile succesive este de ",
+              "afterText": " grade electrice.",
+              "answer": ["120"],
+              "placeholder": "număr",
+              "explanation": "Cele trei faze ale unui sistem trifazat sunt defazate între ele cu 120 de grade (360° / 3)."
             }
           ]
         },
         {
-          "id": "ac_lesson2_rlc",
-          "title": "Elemente Pasive în AC: R, L, C",
-          "short_description": "Comportamentul rezistoarelor, bobinelor și condensatoarelor în AC. Reactanță și Impedanță.",
-          "estimated_time": "18 min",
-          "xp": 25,
+          "id": "ac_lesson5_fourier_analysis_lab",
+          "title": "Laborator Interactiv: Analiza Spectrală (FFT)",
+          "short_description": "Vizualizați și analizați semnale în domeniul timp și frecvență folosind Transformata Fourier Rapidă (FFT).",
+          "estimated_time": "30 min",
+          "xp": 35,
           "exercises": [
             {
               "type": "info",
-              "text": "În AC: \n- Rezistorul (R): Tensiunea și curentul sunt în fază.\n- Bobina (L): Introduce reactanța inductivă XL = ωL = 2πfL. Tensiunea este defazată cu 90° înaintea curentului.\n- Condensatorul (C): Introduce reactanța capacitivă XC = 1/(ωC) = 1/(2πfC). Curentul este defazat cu 90° înaintea tensiunii.\nImpedanța (Z) este opoziția totală față de curent în AC și se măsoară în Ohmi (Ω).",
-              "image": "assets/images/rlc_ac_behavior.png"
+              "text": "Analiza Fourier este un instrument matematic puternic care descompune un semnal complex în suma semnalelor sinusoidale simple care îl compun. Transformata Fourier Rapidă (FFT) este un algoritm eficient pentru calcularea acestei transformări.\nAcest laborator vă permite să generați diverse tipuri de semnale și să observați instantaneu spectrul lor de frecvență și fază."
             },
             {
-              "type": "multiple_choice",
-              "question": "Ce se întâmplă cu reactanța capacitivă (XC) dacă frecvența semnalului AC crește?",
-              "options": [
-                {"text": "Crește"},
-                {"text": "Scade"},
-                {"text": "Rămâne constantă"},
-                {"text": "Devine zero"}
-              ],
-              "answer": "Scade",
-              "explanation": "Reactanța capacitivă XC = 1/(2πfC). Dacă f crește, XC scade."
-            },
-            {
-                "type": "drag_drop_words",
-                "question": "Ordonează corect termenii pentru a descrie relația de fază într-un circuit pur inductiv:",
-                "words": ["curentului", "tensiunea", "înaintea", "este", "defazată"],
-                "correctOrder": ["tensiunea", "este", "defazată", "înaintea", "curentului"],
-                "explanation": "Într-o bobină ideală, tensiunea este defazată cu 90 de grade înaintea curentului."
+              "type": "interactive_lab",
+              "title": "Vizualizator Avansat Transformata Fourier",
+              "description": "Generați semnale, importați fișiere audio sau CSV, utilizați microfonul și explorați reprezentările în domeniul timp, frecvență, fază, spectrogramă și aplicații precum analiza armonică și demonstrarea filtrelor.",
+              "lab_files": {
+                "html": "<!DOCTYPE html>... (CODUL HTML COMPLET AL LABORATORULUI AICI, escapat corect) ...</html>",
+                "css": ":root { ... (CODUL CSS COMPLET AL LABORATORULUI AICI, escapat corect) ... }",
+                "javascript": "// --- DOM Elements ---\nconst themeToggle = ... (CODUL JAVASCRIPT COMPLET AL LABORATORULUI AICI, escapat corect) ... drawWaterfall();"
+              },
+              "guidance": [
+                "Generați un semnal sinusoidal de 5 Hz. Observați reprezentarea sa în domeniul timp și frecvență. Ce reprezintă vârful unic din domeniul frecvență?",
+                "Comutați la un semnal dreptunghiular cu aceeași frecvență de 5 Hz. Cum se modifică spectrul de frecvență? Identificați frecvența fundamentală și armonicile. De ce apar aceste armonici?",
+                "Experimentați cu un semnal triunghiular și dinte de fierăstrău. Comparați spectrele lor cu cel al semnalului dreptunghiular și sinusoidal.",
+                "Utilizați opțiunea 'Custom (Sum of Signals)'. Adăugați două semnale sinusoidale: unul de 5 Hz, amplitudine 1 și altul de 15 Hz, amplitudine 0.5. Analizați semnalul rezultat în domeniul timp și spectrul său. Puteți identifica cele două componente de frecvență?",
+                "Activați intrarea de la microfon (dacă browser-ul și dispozitivul permit). Vorbiți sau produceți diverse sunete. Cum arată spectrul vocii? Puteți identifica frecvențe predominante?",
+                "În secțiunea 'Applications', selectați 'Filter Demo'. Generați un semnal dreptunghiular. Aplicați un filtru 'Low Pass' și variați frecvența de tăiere. Ce se întâmplă cu semnalul filtrat și cu spectrul său? Cum afectează acest lucru forma de undă în domeniul timp?",
+                "Explorați 'Harmonic Analyzer' cu diferite tipuri de semnal. Verificați dacă identifică corect frecvența fundamentală și puterea relativă a armonicilor.",
+                "Importați un fișier .WAV scurt (dacă aveți unul disponibil) și analizați-i spectrul. (Notă: funcționalitatea de import depinde de implementarea completă și corectă a scriptului)."
+              ]
             }
           ]
         }
@@ -157,28 +203,61 @@
   ],
   "badges": [
     {
-      "id": "xp100_electronics",
-      "name": "Electronist XP 100",
-      "description": "Ai acumulat 100 XP în modulele de electronică!",
-      "icon_path": "assets/images/badge_xp_100_electronics.svg",
-      "icon_class_fallback": "fas fa-bolt",
+      "id": "xp100",
+      "name": "Maestru XP 100",
+      "description": "Ai acumulat 100 XP!",
+      "icon_path": "assets/images/badge_xp_100.svg",
+      "icon_class_fallback": "fas fa-star",
       "conditionType": "xp", "value": 100
     },
     {
-      "id": "dc_master",
-      "name": "Maestru DC",
-      "description": "Ai finalizat toate lecțiile despre curentul continuu!",
-      "icon_path": "assets/images/badge_dc_master.svg",
-      "icon_class_fallback": "fas fa-battery-three-quarters",
-      "conditionType": "module_completed", "value": "dc_circuits"
+      "id": "streak3",
+      "name": "Seria de 3 Zile",
+      "description": "Ai menținut o serie de 3 zile!",
+      "icon_path": "assets/images/badge_streak_3.svg",
+      "icon_class_fallback": "fas fa-fire",
+      "conditionType": "streak", "value": 3
     },
     {
-      "id": "first_electronics_lesson",
-      "name": "Primul Circuit",
-      "description": "Ai completat prima ta lecție de electronică!",
-      "icon_path": "assets/images/badge_first_electronics_lesson.svg",
-      "icon_class_fallback": "fas fa-microchip",
+      "id": "first_lesson",
+      "name": "Primul Pas",
+      "description": "Ai completat prima ta lecție!",
+      "icon_path": "assets/images/badge_first_lesson.svg",
+      "icon_class_fallback": "fas fa-graduation-cap",
       "conditionType": "lessons_completed", "value": 1
+    },
+    {
+      "id": "ac_initiate",
+      "name": "Inițiat AC",
+      "description": "Ai completat prima lecție despre Curent Alternativ!",
+      "icon_path": "assets/images/badges/badge_ac_initiate.svg",
+      "icon_class_fallback": "fas fa-lightbulb",
+      "conditionType": "lessons_completed", "value": 1, "moduleId": "ac_circuits_fundamentals"
+    },
+    {
+      "id": "impedance_expert",
+      "name": "Expert în Impedanță",
+      "description": "Ai stăpânit conceptele de impedanță și reactanță!",
+      "icon_path": "assets/images/badges/badge_impedance_expert.svg",
+      "icon_class_fallback": "fas fa-network-wired",
+      "conditionType": "lessons_completed", "value": 2, "moduleId": "ac_circuits_fundamentals"
+    },
+    {
+      "id": "power_guru_ac",
+      "name": "Guru al Puterii AC",
+      "description": "Cunoști toate secretele puterii în curent alternativ!",
+      "icon_path": "assets/images/badges/badge_power_guru_ac.svg",
+      "icon_class_fallback": "fas fa-bolt",
+      "conditionType": "lessons_completed", "value": 3, "moduleId": "ac_circuits_fundamentals"
+    },
+    {
+      "id": "fft_explorer",
+      "name": "Explorator FFT",
+      "description": "Ai finalizat laboratorul interactiv de analiză spectrală!",
+      "icon_path": "assets/images/badges/badge_fft_explorer.svg",
+      "icon_class_fallback": "fas fa-chart-line",
+      "conditionType": "lessons_completed", "value": 5, "moduleId": "ac_circuits_fundamentals" 
+   
     }
   ]
 }
