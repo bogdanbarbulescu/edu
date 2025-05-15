@@ -1,0 +1,139 @@
+{
+  "modules": [
+    {
+      "id": "math_basics",
+      "title": "Matematică de Bază",
+      "description": "Învață conceptele fundamentale ale matematicii.",
+      "icon": "fas fa-calculator", 
+      "lessons": [
+        {
+          "id": "math_lesson1",
+          "title": "Adunarea Simplă",
+          "short_description": "Înțelege adunarea și exersează calcule simple.",
+          "estimated_time": "5 min",
+          "xp": 10,
+          "exercises": [
+            {
+              "type": "info",
+              "text": "Adunarea este procesul de a combina două sau mai multe numere. De exemplu, dacă ai 2 mere și primești încă 2, vei avea 4 mere.",
+              "image": "assets/images/math_visual_example.png"
+            },
+            {
+              "type": "multiple_choice",
+              "question": "Cât fac 2 + 3?",
+              "options": [
+                {"text": "4"},
+                {"text": "5"},
+                {"text": "6"},
+                {"text": "3"}
+              ],
+              "answer": "5",
+              "explanation": "2 adunat cu 3 este egal cu 5."
+            },
+            {
+              "type": "fill_in_the_blank",
+              "question": "Completează spațiul liber: 5 + __ = 8",
+              "beforeText": "5 + ",
+              "afterText": " = 8",
+              "answer": ["3"], 
+              "placeholder": "număr",
+              "explanation": "Pentru a ajunge de la 5 la 8, trebuie să adaugi 3."
+            }
+          ]
+        },
+        {
+          "id": "math_lesson2",
+          "title": "Scăderea Simplă",
+          "short_description": "Învață despre operația de scădere.",
+          "estimated_time": "7 min",
+          "xp": 15,
+          "exercises": [
+            {
+              "type": "info",
+              "text": "Scăderea înseamnă a lua un număr dintr-un altul. Dacă ai 5 bomboane și mănânci 2, îți rămân 3."
+            },
+            {
+              "type": "multiple_choice",
+              "question": "Cât fac 7 - 4?",
+              "options": [
+                {"text": "2"},
+                {"text": "3"},
+                {"text": "1"},
+                {"text": "5"}
+              ],
+              "answer": "3",
+              "explanation": "7 minus 4 este egal cu 3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grammar_basics",
+      "title": "Gramatică Română",
+      "description": "Principii de bază ale gramaticii limbii române.",
+      "icon": "fas fa-spell-check",
+      "lessons": [
+        {
+          "id": "grammar_lesson1",
+          "title": "Substantivul",
+          "short_description": "Ce este substantivul și cum îl recunoști.",
+          "estimated_time": "10 min",
+          "xp": 10,
+          "exercises": [
+            {
+              "type": "info",
+              "text": "Substantivul este partea de vorbire care denumește ființe, lucruri, fenomene ale naturii, etc. De exemplu: 'casă', 'copil', 'ploaie'.",
+              "image": "assets/images/grammar_visual_example.png"
+            },
+            {
+              "type": "drag_drop_words",
+              "question": "Ordonează cuvintele pentru a forma o propoziție corectă:",
+              "words": ["pisica", "șoarecele", "prinde"],
+              "correctOrder": ["pisica", "prinde", "șoarecele"],
+              "explanation": "Propoziția corectă este 'Pisica prinde șoarecele'."
+            },
+            {
+                "type": "multiple_choice",
+                "question": "Care dintre următoarele este un substantiv?",
+                "options": [
+                    {"text": "aleargă"},
+                    {"text": "frumos"},
+                    {"text": "carte"},
+                    {"text": "repede"}
+                ],
+                "answer": "carte",
+                "explanation": "'Carte' denumește un obiect, deci este un substantiv."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "badges": [
+    { 
+      "id": "xp100", 
+      "name": "Maestru XP 100", 
+      "description": "Ai acumulat 100 XP!", 
+      "icon_path": "assets/images/badge_xp_100.svg", 
+      "icon_class_fallback": "fas fa-star", 
+      "conditionType": "xp", "value": 100 
+    },
+    { 
+      "id": "streak3", 
+      "name": "Seria de 3 Zile", 
+      "description": "Ai menținut o serie de 3 zile!", 
+      "icon_path": "assets/images/badge_streak_3.svg", 
+      "icon_class_fallback": "fas fa-fire",
+      "conditionType": "streak", "value": 3 
+    },
+    { 
+      "id": "first_lesson", 
+      "name": "Primul Pas", 
+      "description": "Ai completat prima ta lecție!", 
+      "icon_path": "assets/images/badge_first_lesson.svg", 
+      "icon_class_fallback": "fas fa-graduation-cap",
+      "conditionType": "lessons_completed", "value": 1
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platformă Educațională Interactivă</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="light-theme"> <!-- Clasa inițială pentru temă -->
+
+    <nav id="sidenav" class="sidenav">
+        <div class="sidenav-header">
+            <span class="sidenav-logo">EduFun Nav</span>
+            <button id="close-sidenav-btn" class="close-sidenav-btn" aria-label="Închide meniul lateral">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul>
+            <li><a href="#dashboard" class="sidenav-link active-sidenav-link" data-view="dashboard-view"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="#cursuri" class="sidenav-link" data-view="courses-view"><i class="fas fa-book-open"></i> Cursurile Mele</a></li>
+            <li><a href="#progres" class="sidenav-link" data-view="progress-view"><i class="fas fa-chart-line"></i> Progresul Meu</a></li>
+            <li><a href="#recompense-nav" class="sidenav-link" data-view="badges-view"><i class="fas fa-trophy"></i> Recompense Nav</a></li>
+            <li><hr class="sidenav-divider"></li>
+            <li><a href="#profil" class="sidenav-link" data-view="profile-view"><i class="fas fa-user-circle"></i> Profilul Meu</a></li>
+            <li><a href="#setari" class="sidenav-link" data-view="settings-view"><i class="fas fa-cog"></i> Setări</a></li>
+            <li>
+                <a href="#" class="sidenav-link" id="sidenav-theme-toggle">
+                    <i class="fas fa-palette"></i> <span>Schimbă Tema</span>
+                </a>
+            </li>
+            <li><a href="#logout" class="sidenav-link"><i class="fas fa-sign-out-alt"></i> Deconectare</a></li>
+        </ul>
+        <div class="sidenav-footer">
+            <p>© 2025 EduFun</p>
+        </div>
+    </nav>
+    <div id="overlay" class="overlay"></div>
+
+    <div class="page-content-pusher">
+        <header>
+            <div class="header-left">
+                <button id="sidenav-toggle" aria-label="Deschide meniul lateral" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">EduFun</div>
+            </div>
+            <div class="header-right">
+                <div class="user-stats">
+                    <span id="xp-display">XP: 0</span>
+                    <span id="streak-display"><i class="fas fa-fire"></i> 0</span>
+                </div>
+                <button id="theme-toggle-button" aria-label="Schimbă tema"><i class="fas fa-sun"></i></button>
+            </div>
+        </header>
+
+        <main>
+            <div id="dashboard-view" class="view active-view">
+                <h2>Dashboard</h2>
+                <div id="badges-container"> <!-- Containerul principal pentru recompense -->
+                    <h3>Recompense</h3>
+                    <div class="badge-list"> <!-- AICI TREBUIE SĂ FIE ACEST DIV -->
+                        <!-- Badges vor fi inserate dinamic aici de JS -->
+                    </div>
+                </div>
+                <div id="modules-container">
+                     <h3>Module Disponibile</h3>
+                    <!-- Module și lecții vor fi inserate dinamic aici -->
+                </div>
+            </div>
+
+            <div id="lesson-view" class="view">
+                <button id="back-to-dashboard"><i class="fas fa-arrow-left"></i> Înapoi la Dashboard</button>
+                <h2 id="lesson-title"></h2>
+                <div id="lesson-content">
+                    <!-- Exercițiile lecției vor fi inserate dinamic aici -->
+                </div>
+                <div id="feedback-container"> <!-- Fără clasa feedback-visible inițial -->
+                    <p id="feedback-text"></p>
+                    <p id="feedback-explanation"></p>
+                </div>
+                <button id="next-exercise-button" style="display: none;">Continuă <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <!-- Placeholder pentru alte view-uri (pot fi completate ulterior) -->
+            <div id="courses-view" class="view">
+                <h2>Cursurile Mele</h2>
+                <p>Aici va fi lista cursurilor la care ești înscris.</p>
+            </div>
+            <div id="progress-view" class="view">
+                <h2>Progresul Meu</h2>
+                <p>Aici vor fi grafice și statistici despre progresul tău.</p>
+            </div>
+             <div id="badges-view" class="view"> <!-- View dedicat pentru recompense -->
+                <h2>Toate Recompensele</h2>
+                <p>Aici vor fi afișate toate recompensele obținute și cele blocate, într-un format mai detaliat.</p>
+                <!-- Poți refolosi funcția renderBadgesOnDashboard sau crea una specifică aici -->
+                 <div class="all-badges-list-container" style="margin-top: 2rem;">
+                    <!-- Conținut similar cu .badge-list de pe dashboard -->
+                 </div>
+            </div>
+            <div id="profile-view" class="view">
+                <h2>Profilul Meu</h2>
+                <p>Aici vei putea edita informațiile profilului tău.</p>
+            </div>
+            <div id="settings-view" class="view">
+                <h2>Setări</h2>
+                <p>Aici vei putea ajusta setările platformei, inclusiv tema.</p>
+                <div style="margin-top: 1rem;">
+                    <label for="theme-select-settings">Selectează Tema:</label>
+                    <select id="theme-select-settings" style="padding: 0.5rem; border-radius: 6px;">
+                        <option value="light">Deschisă</option>
+                        <option value="dark">Întunecată</option>
+                    </select>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Platformă Educațională EduFun</p>
+        </footer>
+    </div>
+
+    <!-- Librării JS -->
+    <script src="libs/anime.min.js"></script>
+    <script src="libs/sortable.min.js"></script>
+    <!-- <script src="libs/chart.min.js"></script> -->
+    <script src="script.js"></script>
+</body>
+</html>
