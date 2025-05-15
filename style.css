@@ -49,8 +49,8 @@ body {
     min-height: 100vh;
     line-height: 1.6;
     font-size: 16px;
-    position: relative; 
-    overflow-x: hidden; 
+    position: relative;
+    overflow-x: hidden;
 }
 
 body.light-theme {
@@ -64,7 +64,7 @@ body.dark-theme {
 }
 
 body.sidenav-active {
-    overflow-y: hidden; 
+    overflow-y: hidden;
 }
 
 /* === SIDENAV === */
@@ -73,9 +73,9 @@ body.sidenav-active {
     width: var(--sidenav-width);
     position: fixed;
     top: 0;
-    left: calc(-1 * var(--sidenav-width)); 
-    z-index: 1002; 
-    padding-top: 0; /* Eliminat padding-top, header-ul sidenav-ului va gestiona spațierea */
+    left: calc(-1 * var(--sidenav-width));
+    z-index: 1002;
+    padding-top: 0;
     transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     display: flex;
     flex-direction: column;
@@ -98,8 +98,8 @@ body.dark-theme .sidenav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1.5rem; 
-    height: var(--header-height); /* Aliniază cu înălțimea header-ului principal */
+    padding: 0 1.5rem;
+    height: var(--header-height);
     border-bottom: 1px solid;
     box-sizing: border-box;
 }
@@ -120,7 +120,7 @@ body.dark-theme .sidenav-logo { color: var(--primary-color-dark); }
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0.5rem;
-    line-height: 1; 
+    line-height: 1;
 }
 body.light-theme .close-sidenav-btn { color: var(--text-color-light); }
 body.dark-theme .close-sidenav-btn { color: var(--text-color-dark); }
@@ -132,8 +132,8 @@ body.dark-theme .close-sidenav-btn:hover { color: var(--primary-color-dark); }
     list-style: none;
     padding: 1rem 0;
     margin: 0;
-    flex-grow: 1; 
-    overflow-y: auto; 
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .sidenav-link {
@@ -144,14 +144,14 @@ body.dark-theme .close-sidenav-btn:hover { color: var(--primary-color-dark); }
     font-size: 1rem;
     font-weight: 500;
     transition: background-color 0.2s, color 0.2s, border-left-color 0.2s;
-    border-left: 3px solid transparent; 
+    border-left: 3px solid transparent;
 }
 body.light-theme .sidenav-link { color: var(--sidenav-text-light); }
 body.dark-theme .sidenav-link { color: var(--sidenav-text-dark); }
 
 .sidenav-link i {
     margin-right: 1rem;
-    width: 20px; 
+    width: 20px;
     text-align: center;
     font-size: 1.1em;
     transition: color 0.2s;
@@ -223,7 +223,7 @@ body.dark-theme .sidenav-footer { border-top-color: var(--card-border-dark); opa
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1001; 
+    z-index: 1001;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -243,14 +243,14 @@ body.dark-theme .sidenav-footer { border-top-color: var(--card-border-dark); opa
     transition: margin-left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
     body.sidenav-active .page-content-pusher {
         margin-left: var(--sidenav-width);
     }
-    body.sidenav-active .sidenav.open { /* Asigură că Sidenav-ul este afișat corect când e activ pe desktop */
-        left: 0; 
+    body.sidenav-active .sidenav.open {
+        left: 0;
     }
-     body.sidenav-active .overlay.active { /* Overlay-ul nu e necesar pe desktop când Sidenav-ul împinge conținutul */
+     body.sidenav-active .overlay.active {
         opacity: 0;
         visibility: hidden;
     }
@@ -263,20 +263,20 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1.5rem; 
+    padding: 0 1.5rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
-    z-index: 1000; 
+    z-index: 1000;
     box-sizing: border-box;
 }
 
-body.light-theme header { 
-    background-color: #ffffff; 
+body.light-theme header {
+    background-color: #ffffff;
     border-bottom: 1px solid var(--card-border-light);
 }
-body.dark-theme header { 
-    background-color: var(--card-background-dark); 
+body.dark-theme header {
+    background-color: var(--card-background-dark);
     border-bottom: 1px solid var(--card-border-dark);
 }
 
@@ -289,11 +289,11 @@ body.dark-theme header {
 #sidenav-toggle {
     background: none;
     border: none;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     cursor: pointer;
     padding: 0.5rem;
-    margin-left: -0.5rem; 
-    display: inline-flex; /* Asigură afișarea corectă */
+    margin-left: -0.5rem;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
@@ -383,14 +383,80 @@ main {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* === DASHBOARD === */
-#dashboard-view h2 { 
+.view-description { /* Stil general pentru descrierile de view */
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    max-width: 700px;
+}
+
+
+/* === DASHBOARD & SEARCH === */
+#dashboard-view h2 {
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
 }
 body.light-theme #dashboard-view h2 { color: var(--primary-color-light); }
 body.dark-theme #dashboard-view h2 { color: var(--primary-color-dark); }
+
+.search-container {
+    margin-bottom: 2.5rem;
+    position: relative;
+    max-width: 600px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    padding-right: 3rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    font-family: inherit;
+}
+body.light-theme #search-input {
+    border-color: var(--card-border-light);
+    background-color: var(--card-background-light);
+    color: var(--text-color-light);
+}
+body.light-theme #search-input::placeholder { color: var(--secondary-color-light); opacity: 0.8;}
+body.light-theme #search-input:focus {
+    border-color: var(--primary-color-light);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    outline: none;
+}
+body.dark-theme #search-input {
+    border-color: var(--card-border-dark);
+    background-color: var(--card-background-dark);
+    color: var(--text-color-dark);
+}
+body.dark-theme #search-input::placeholder { color: var(--secondary-color-dark); opacity: 0.8; }
+body.dark-theme #search-input:focus {
+    border-color: var(--primary-color-dark);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+    outline: none;
+}
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    opacity: 0.6;
+    pointer-events: none;
+}
+body.light-theme .search-icon { color: var(--text-color-light); }
+body.dark-theme .search-icon { color: var(--text-color-dark); }
+.no-search-results {
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
 
 #modules-container, #badges-container {
     margin-top: 2.5rem;
@@ -413,11 +479,11 @@ body.dark-theme #dashboard-view h2 { color: var(--primary-color-dark); }
     height: 1.4rem;
     border-radius: 10px;
 }
-body.light-theme #badges-container > h3::before, 
+body.light-theme #badges-container > h3::before,
 body.light-theme #modules-container > h3::before {
     background-color: var(--accent-color-light);
 }
-body.dark-theme #badges-container > h3::before, 
+body.dark-theme #badges-container > h3::before,
 body.dark-theme #modules-container > h3::before {
     background-color: var(--accent-color-dark);
 }
@@ -431,11 +497,11 @@ body.dark-theme #modules-container > h3::before {
     position: relative;
     overflow: hidden;
 }
-body.light-theme .module { 
+body.light-theme .module {
     background-color: var(--card-background-light);
     border-color: var(--card-border-light);
 }
-body.dark-theme .module { 
+body.dark-theme .module {
     background-color: var(--card-background-dark);
     border-color: var(--card-border-dark);
 }
@@ -454,7 +520,7 @@ body.dark-theme .module::after {
     background: linear-gradient(90deg, var(--primary-color-dark), var(--accent-color-dark));
 }
 
-.module h3 { 
+.module h3 {
     margin-top: 0;
     font-size: 1.5rem;
     padding-left: 0 !important;
@@ -462,32 +528,30 @@ body.dark-theme .module::after {
     align-items: center;
     gap: 0.7rem;
 }
-.module h3::before { display: none !important; } 
+.module h3::before { display: none !important; }
 .module h3 i { font-size: 1.3rem; }
 body.light-theme .module h3 { color: var(--primary-color-light); }
 body.dark-theme .module h3 { color: var(--primary-color-dark); }
 
 .lesson-cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Păstrăm responsivitatea */
-    gap: 1.8rem; /* AM MĂRIT ACEASTĂ VALOARE pentru mai mult spațiu între carduri */
-    margin-top: 1.2rem; /* Spațiul deasupra containerului de carduri */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.8rem; /* MĂRIT PENTRU MAI MULT SPAȚIU */
+    margin-top: 1.2rem;
 }
-
 .lesson-card {
-    padding: 1.2rem; /* Padding-ul INTERN al cardului rămâne la fel, sau îl poți ajusta dacă dorești */
+    padding: 1.2rem;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* Asigură că toate cardurile dintr-un rând au aceeași înălțime dacă conținutul variază */
-    min-height: 170px; 
+    height: 100%;
+    min-height: 170px;
     position: relative;
     overflow: hidden;
-    /* Adăugăm box-sizing pentru a ne asigura că padding-ul și border-ul sunt incluse în lățimea/înălțimea totală */
-    box-sizing: border-box;
+    box-sizing: border-box; /* Adăugat pentru consistență */
 }
 body.light-theme .lesson-card {
     background-color: var(--panel-bg-light);
@@ -498,21 +562,21 @@ body.dark-theme .lesson-card {
     border: 1px solid var(--card-border-dark);
 }
 .lesson-card:hover { transform: translateY(-5px); }
-body.light-theme .lesson-card:hover { 
+body.light-theme .lesson-card:hover {
     border-color: var(--primary-color-light);
-    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.15); 
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.15);
 }
-body.dark-theme .lesson-card:hover { 
+body.dark-theme .lesson-card:hover {
     border-color: var(--primary-color-dark);
-    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.2); 
+    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.2);
 }
-.lesson-card::after { 
+.lesson-card::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     height: 3px;
-    width: var(--completion-percentage, 0%); 
+    width: var(--completion-percentage, 0%);
     transition: width 0.3s ease;
 }
 body.light-theme .lesson-card::after { background-color: var(--primary-color-light); }
@@ -526,9 +590,9 @@ body.dark-theme .lesson-card::after { background-color: var(--primary-color-dark
 }
 body.light-theme .lesson-card h4 { color: var(--primary-color-light); }
 body.dark-theme .lesson-card h4 { color: var(--primary-color-dark); }
-.lesson-card h4 i:first-child { font-size: 1.1rem; } 
-.lesson-card h4 .fa-check-circle { 
-    margin-left: auto; 
+.lesson-card h4 i:first-child { font-size: 1.1rem; }
+.lesson-card h4 .fa-check-circle {
+    margin-left: auto;
 }
 body.light-theme .lesson-card h4 .fa-check-circle { color: var(--correct-color-light); }
 body.dark-theme .lesson-card h4 .fa-check-circle { color: var(--correct-color-dark); }
@@ -556,11 +620,11 @@ body.dark-theme .lesson-card h4 .fa-check-circle { color: var(--correct-color-da
     align-items: center;
     gap: 0.3rem;
 }
-body.light-theme .lesson-card .xp-info { 
-    color: var(--primary-color-light); 
+body.light-theme .lesson-card .xp-info {
+    color: var(--primary-color-light);
     background-color: rgba(37, 99, 235, 0.1);
 }
-body.dark-theme .lesson-card .xp-info { 
+body.dark-theme .lesson-card .xp-info {
     color: var(--primary-color-dark);
     background-color: rgba(59, 130, 246, 0.2);
 }
@@ -577,15 +641,16 @@ body.dark-theme .lesson-card .xp-info {
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.06);
 }
-body.light-theme #lesson-view { 
+body.light-theme #lesson-view {
     background-color: var(--card-background-light);
     border: 1px solid var(--card-border-light);
 }
-body.dark-theme #lesson-view { 
+body.dark-theme #lesson-view {
     background-color: var(--card-background-dark);
     border: 1px solid var(--card-border-dark);
 }
-#back-to-dashboard {
+#back-to-dashboard.button-subtle, /* Clasă adăugată și în HTML */
+#back-to-lp-overview.button-subtle {
     background: none;
     border: none;
     padding: 0.5rem 0.8rem;
@@ -598,10 +663,11 @@ body.dark-theme #lesson-view {
     transition: background-color 0.2s;
     font-weight: 600;
 }
-body.light-theme #back-to-dashboard { color: var(--primary-color-light); }
-body.dark-theme #back-to-dashboard { color: var(--primary-color-dark); }
-body.light-theme #back-to-dashboard:hover { background-color: rgba(37, 99, 235, 0.08); }
-body.dark-theme #back-to-dashboard:hover { background-color: rgba(59, 130, 246, 0.1); }
+body.light-theme .button-subtle { color: var(--primary-color-light); }
+body.dark-theme .button-subtle { color: var(--primary-color-dark); }
+body.light-theme .button-subtle:hover { background-color: rgba(37, 99, 235, 0.08); }
+body.dark-theme .button-subtle:hover { background-color: rgba(59, 130, 246, 0.1); }
+
 
 #lesson-title {
     font-size: 1.8rem;
@@ -625,11 +691,11 @@ body.dark-theme #lesson-title {
     padding: 1.5rem;
     border-radius: 10px;
 }
-body.light-theme #lesson-content { 
+body.light-theme #lesson-content {
     background-color: var(--panel-bg-light);
     border: 1px solid var(--card-border-light);
 }
-body.dark-theme #lesson-content { 
+body.dark-theme #lesson-content {
     background-color: var(--panel-bg-dark);
     border: 1px solid var(--card-border-dark);
 }
@@ -663,7 +729,7 @@ body.dark-theme .exercise-header h3 {
     border-radius: 8px;
     margin: 1rem 0 1.5rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    display: block; 
+    display: block;
 }
 
 /* Opțiuni multiple/răspunsuri */
@@ -720,7 +786,7 @@ body.dark-theme .option-button:hover {
 }
 .option-button.selected {
     border-width: 2px;
-    padding: calc(1rem - 1px) calc(1.3rem - 1px); 
+    padding: calc(1rem - 1px) calc(1.3rem - 1px);
 }
 body.light-theme .option-button.selected {
     border-color: var(--primary-color-light);
@@ -736,9 +802,9 @@ body.dark-theme .option-button.selected {
 .fill-blank-container {
     font-size: 1.05rem;
     line-height: 1.8;
-    display: flex; 
+    display: flex;
     align-items: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     gap: 0.8rem;
 }
 .fill-blank-container input {
@@ -747,7 +813,7 @@ body.dark-theme .option-button.selected {
     font-size: 1em;
     transition: all 0.2s;
     border: 2px solid;
-    flex-grow: 1; 
+    flex-grow: 1;
     min-width: 120px;
 }
 body.light-theme .fill-blank-container input {
@@ -770,41 +836,41 @@ body.dark-theme .fill-blank-container input:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
 }
-.fill-blank-container button { margin-top: 0; } 
+.fill-blank-container button { margin-top: 0; }
 
 /* Feedback pentru răspunsuri */
 #feedback-container {
     padding: 1.2rem;
     margin-top: 1.5rem;
     border-radius: 8px;
-    display: none; 
+    display: none;
     animation: fadeInUp 0.3s ease-out;
     border-left-width: 4px;
     border-left-style: solid;
 }
-#feedback-container.feedback-visible { display: block; } 
+#feedback-container.feedback-visible { display: block; }
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-body.light-theme #feedback-container.correct { 
-    background-color: rgba(5, 150, 105, 0.08); 
-    color: var(--correct-color-light); 
+body.light-theme #feedback-container.correct {
+    background-color: rgba(5, 150, 105, 0.08);
+    color: var(--correct-color-light);
     border-left-color: var(--correct-color-light);
 }
-body.dark-theme #feedback-container.correct { 
-    background-color: rgba(16, 185, 129, 0.12); 
-    color: var(--correct-color-dark); 
+body.dark-theme #feedback-container.correct {
+    background-color: rgba(16, 185, 129, 0.12);
+    color: var(--correct-color-dark);
     border-left-color: var(--correct-color-dark);
 }
-body.light-theme #feedback-container.incorrect { 
-    background-color: rgba(220, 38, 38, 0.08); 
-    color: var(--incorrect-color-light); 
+body.light-theme #feedback-container.incorrect {
+    background-color: rgba(220, 38, 38, 0.08);
+    color: var(--incorrect-color-light);
     border-left-color: var(--incorrect-color-light);
 }
-body.dark-theme #feedback-container.incorrect { 
-    background-color: rgba(239, 68, 68, 0.12); 
-    color: var(--incorrect-color-dark); 
+body.dark-theme #feedback-container.incorrect {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: var(--incorrect-color-dark);
     border-left-color: var(--incorrect-color-dark);
 }
 #feedback-text {
@@ -824,7 +890,7 @@ body.dark-theme #feedback-container.incorrect {
     margin-bottom: 0;
 }
 
-/* Butoane generale */
+/* Butoane generale & Interactive Lab Button */
 button, .button-like {
     padding: 0.9rem 1.6rem;
     border: none;
@@ -848,20 +914,18 @@ body.light-theme button, body.light-theme .button-like {
 }
 body.dark-theme button, body.dark-theme .button-like {
     background-color: var(--primary-color-dark);
-    color: white; 
+    color: white;
     box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
 }
-
-
 button:not([disabled]):hover, .button-like:not([disabled]):hover {
     transform: translateY(-2px);
 }
-body.light-theme button:not([disabled]):hover, body.light-theme .button-like:not([disabled]):hover { 
-    background-color: var(--button-hover-light); 
+body.light-theme button:not([disabled]):hover, body.light-theme .button-like:not([disabled]):hover {
+    background-color: var(--button-hover-light);
     box-shadow: 0 4px 8px rgba(37, 99, 235, 0.25);
 }
-body.dark-theme button:not([disabled]):hover, body.dark-theme .button-like:not([disabled]):hover { 
-    background-color: var(--button-hover-dark); 
+body.dark-theme button:not([disabled]):hover, body.dark-theme .button-like:not([disabled]):hover {
+    background-color: var(--button-hover-dark);
     box-shadow: 0 4px 8px rgba(59, 130, 246, 0.35);
 }
 button:active, .button-like:active {
@@ -874,12 +938,101 @@ button[disabled] {
 }
 #next-exercise-button { margin-top: 1.5rem; }
 
+.button-primary { /* Pentru butoane mai proeminente ca enroll și open lab */
+    padding: 0.9rem 1.8rem !important;
+    font-size: 1.05rem !important;
+}
+body.light-theme .button-primary {
+    background-color: var(--accent-color-light) !important;
+    box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2) !important;
+}
+body.light-theme .button-primary:hover {
+    background-color: #6d28d9 !important; /* O nuanță mai închisă a accentului */
+    box-shadow: 0 4px 8px rgba(124, 58, 237, 0.25) !important;
+}
+body.dark-theme .button-primary {
+    background-color: var(--accent-color-dark) !important;
+    box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3) !important;
+}
+body.dark-theme .button-primary:hover {
+    background-color: #7c3aed !important;
+    box-shadow: 0 4px 8px rgba(139, 92, 246, 0.35) !important;
+}
+
+/* Interactive Lab Section */
+.lab-description {
+    margin-bottom: 1rem;
+    padding: 1.2rem;
+    border-radius: 8px;
+}
+body.light-theme .lab-description {
+    background-color: var(--panel-bg-light);
+    border: 1px solid var(--card-border-light);
+}
+body.dark-theme .lab-description {
+    background-color: var(--panel-bg-dark);
+    border: 1px solid var(--card-border-dark);
+}
+.lab-description h4 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+body.light-theme .lab-description h4 { color: var(--primary-color-light); }
+body.dark-theme .lab-description h4 { color: var(--primary-color-dark); }
+
+.lab-description p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+.open-lab-button-container {
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.lab-guidance {
+    margin-top: 2rem;
+    padding: 1.2rem;
+    border-radius: 8px;
+}
+body.light-theme .lab-guidance {
+    background-color: #eef2ff;
+    border: 1px solid var(--secondary-color-light);
+}
+body.dark-theme .lab-guidance {
+    background-color: #2c3548;
+    border: 1px solid var(--secondary-color-dark);
+}
+.lab-guidance h4 {
+    margin-top: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+body.light-theme .lab-guidance h4 { color: var(--primary-color-light); }
+body.dark-theme .lab-guidance h4 { color: var(--primary-color-dark); }
+
+.lab-guidance ul {
+    list-style-type: '→ ';
+    padding-left: 1.2rem;
+    margin-bottom: 0;
+    margin-top: 0.8rem;
+}
+.lab-guidance li {
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+
 /* Drag and drop styles (SortableJS) */
 .draggable-words-container, .drop-target-area {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; 
-    padding: 1rem; 
+    gap: 10px;
+    padding: 1rem;
     border-radius: 8px;
     min-height: 60px;
     margin-bottom: 1rem;
@@ -893,20 +1046,20 @@ button[disabled] {
     opacity: 0.8;
 }
 
-body.light-theme .draggable-words-container { 
+body.light-theme .draggable-words-container {
     border: 2px dashed var(--card-border-light);
     background-color: rgba(243, 244, 246, 0.7);
 }
-body.dark-theme .draggable-words-container { 
+body.dark-theme .draggable-words-container {
     border: 2px dashed var(--card-border-dark);
     background-color: rgba(31, 41, 55, 0.5);
 }
-body.light-theme .drop-target-area { 
-    border: 2px solid var(--card-border-light); 
+body.light-theme .drop-target-area {
+    border: 2px solid var(--card-border-light);
     background-color: white;
 }
-body.dark-theme .drop-target-area { 
-    border: 2px solid var(--card-border-dark); 
+body.dark-theme .drop-target-area {
+    border: 2px solid var(--card-border-dark);
     background-color: var(--card-background-dark);
 }
 
@@ -920,31 +1073,31 @@ body.dark-theme .drop-target-area {
     transition: transform 0.2s, background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 .draggable-word:hover { transform: translateY(-2px); }
-body.light-theme .draggable-word { 
-    background-color: white; 
+body.light-theme .draggable-word {
+    background-color: white;
     color: var(--primary-color-light);
     border: 1px solid rgba(37, 99, 235, 0.2);
 }
-body.dark-theme .draggable-word { 
-    background-color: var(--card-background-dark); 
+body.dark-theme .draggable-word {
+    background-color: var(--card-background-dark);
     color: var(--primary-color-dark);
     border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
-.sortable-ghost { 
+.sortable-ghost {
     opacity: 0.4;
 }
 body.light-theme .sortable-ghost { background-color: var(--secondary-color-light) !important; }
 body.dark-theme .sortable-ghost { background-color: var(--secondary-color-dark) !important; }
 
-.sortable-chosen { 
+.sortable-chosen {
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     transform: scale(1.05);
 }
 
 
 /* Badges */
-.badge-list { /* Containerul pentru badge-uri de pe Dashboard */
+.badge-list {
     display: flex;
     flex-wrap: wrap;
     gap: 1.3rem;
@@ -964,15 +1117,15 @@ body.dark-theme .sortable-ghost { background-color: var(--secondary-color-dark) 
     border: 2px solid transparent;
     box-sizing: border-box;
 }
-body.light-theme .badge { 
-    background-color: var(--panel-bg-light); 
+body.light-theme .badge {
+    background-color: var(--panel-bg-light);
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-body.dark-theme .badge { 
-    background-color: var(--panel-bg-dark); 
+body.dark-theme .badge {
+    background-color: var(--panel-bg-dark);
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
-.badge i { 
+.badge i {
     font-size: 2.5rem;
     margin-bottom: 0.7rem;
     transition: color 0.2s;
@@ -995,24 +1148,29 @@ body.dark-theme .badge:hover {
     box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2);
 }
 .badge.earned {
-    opacity: 1 !important; 
+    opacity: 1 !important;
 }
 body.light-theme .badge.earned { border-color: var(--accent-color-light); }
 body.dark-theme .badge.earned { border-color: var(--accent-color-dark); }
-body.light-theme .badge.earned i { color: var(--accent-color-light); } /* Culoare mai vibrantă pentru iconiță câștigată */
+body.light-theme .badge.earned i { color: var(--accent-color-light); }
 body.dark-theme .badge.earned i { color: var(--accent-color-dark); }
+.badge-description-small { /* Pentru lista din #badges-view */
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 0.3rem;
+}
 
 
 /* === BADGE NOTIFICATION === */
 .badge-notification {
     position: fixed;
-    top: 50%; 
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    z-index: 1005; 
+    z-index: 1005;
     text-align: center;
     min-width: 300px;
     max-width: 90%;
@@ -1048,15 +1206,313 @@ body.dark-theme .badge-notification h3 { color: var(--primary-color-dark); }
 .badge-notification .button-like {
     padding: 0.8rem 2rem;
 }
-.badge-notification i.fa-award, 
+.badge-notification i.fa-award,
 .badge-notification i.fa-trophy,
-.badge-notification i.fa-star { /* Stilizare pentru iconița mare din notificare */
-    font-size: 3.5rem !important; /* Asigură mărimea */
+.badge-notification i.fa-star {
+    font-size: 3.5rem !important;
     margin: 0.5rem auto 1rem !important;
     display: block !important;
 }
 body.light-theme .badge-notification i.fa-award { color: var(--accent-color-light); }
 body.dark-theme .badge-notification i.fa-award { color: var(--accent-color-dark); }
+
+
+/* === COURSES & PROGRESS VIEWS === */
+.modules-list-detailed .module {
+    margin-bottom: 2rem;
+}
+.modules-list-detailed .module-progress-summary {
+    margin-top: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+.modules-list-detailed .progress-bar-container {
+    width: 100%;
+    background-color: var(--card-border-light);
+    border-radius: 4px;
+    height: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+body.dark-theme .modules-list-detailed .progress-bar-container {
+    background-color: var(--card-border-dark);
+}
+.modules-list-detailed .progress-bar {
+    height: 100%;
+    background-color: var(--primary-color-light);
+    border-radius: 4px;
+    transition: width 0.5s ease-in-out;
+    text-align: center;
+    color: white;
+    font-size: 0.7rem;
+    line-height: 10px;
+}
+body.dark-theme .modules-list-detailed .progress-bar {
+    background-color: var(--primary-color-dark);
+}
+.modules-list-detailed .lesson-cards-container {
+    margin-top: 1rem;
+}
+
+.progress-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+.summary-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+}
+body.light-theme .summary-card {
+    background-color: var(--card-background-light);
+    border: 1px solid var(--card-border-light);
+}
+body.dark-theme .summary-card {
+    background-color: var(--card-background-dark);
+    border: 1px solid var(--card-border-dark);
+}
+.summary-card i {
+    font-size: 2.2rem;
+    padding: 0.8rem;
+    border-radius: 50%;
+    min-width: 40px;
+    text-align: center;
+}
+#progress-xp i { color: #f59e0b; background-color: rgba(245, 158, 11, 0.1); }
+#progress-streak i { color: #ef4444; background-color: rgba(239, 68, 68, 0.1); }
+#progress-lessons-completed i { color: var(--primary-color-light); background-color: rgba(37, 99, 235, 0.1); }
+body.dark-theme #progress-lessons-completed i { color: var(--primary-color-dark); background-color: rgba(59, 130, 246, 0.1); }
+#progress-badges-earned i { color: var(--accent-color-light); background-color: rgba(124, 58, 237, 0.1); }
+body.dark-theme #progress-badges-earned i { color: var(--accent-color-dark); background-color: rgba(139, 92, 246, 0.1); }
+
+.summary-card div { display: flex; flex-direction: column; }
+.summary-value { font-size: 1.6rem; font-weight: 700; }
+body.light-theme .summary-value { color: var(--text-color-light); }
+body.dark-theme .summary-value { color: var(--text-color-dark); }
+.summary-label { font-size: 0.9rem; opacity: 0.8; }
+
+#progress-modules-container h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+#progress-modules-container h3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 1.4rem;
+    border-radius: 10px;
+}
+body.light-theme #progress-modules-container h3::before { background-color: var(--primary-color-light); }
+body.dark-theme #progress-modules-container h3::before { background-color: var(--primary-color-dark); }
+
+.chart-wrapper {
+    max-width: 400px;
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 8px;
+}
+body.light-theme .chart-wrapper { background-color: var(--card-background-light); border: 1px solid var(--card-border-light); }
+body.dark-theme .chart-wrapper { background-color: var(--card-background-dark); border: 1px solid var(--card-border-dark); }
+
+/* === LEARNING PATHS === */
+.learning-paths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.8rem;
+    margin-top: 1.5rem;
+}
+.lp-card {
+    padding: 1.5rem;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+}
+body.light-theme .lp-card {
+    background-color: var(--card-background-light);
+    border: 1px solid var(--card-border-light);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+body.dark-theme .lp-card {
+    background-color: var(--card-background-dark);
+    border: 1px solid var(--card-border-dark);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.lp-card:hover { transform: translateY(-5px); }
+body.light-theme .lp-card:hover {
+    border-color: var(--primary-color-light);
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.1);
+}
+body.dark-theme .lp-card:hover {
+    border-color: var(--primary-color-dark);
+    box-shadow: 0 5px 12px rgba(59, 130, 246, 0.15);
+}
+.lp-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+.lp-card-header i { font-size: 1.8rem; }
+body.light-theme .lp-card-header i { color: var(--primary-color-light); }
+body.dark-theme .lp-card-header i { color: var(--primary-color-dark); }
+.lp-card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+}
+body.light-theme .lp-card-title { color: var(--primary-color-light); }
+body.dark-theme .lp-card-title { color: var(--primary-color-dark); }
+.lp-card-description {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+.lp-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    border-top: 1px solid;
+    padding-top: 0.8rem;
+    margin-top: auto;
+}
+body.light-theme .lp-card-meta { border-top-color: var(--card-border-light); }
+body.dark-theme .lp-card-meta { border-top-color: var(--card-border-dark); }
+.lp-card-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+.lp-header-section {
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2.5rem;
+}
+body.light-theme .lp-header-section {
+    background-color: var(--panel-bg-light);
+    border: 1px solid var(--card-border-light);
+}
+body.dark-theme .lp-header-section {
+    background-color: var(--panel-bg-dark);
+    border: 1px solid var(--card-border-dark);
+}
+#lp-detail-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+}
+body.light-theme #lp-detail-title { color: var(--primary-color-light); }
+body.dark-theme #lp-detail-title { color: var(--primary-color-dark); }
+.lp-meta-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.95rem;
+    opacity: 0.8;
+    margin-bottom: 1.2rem;
+}
+.lp-meta-info span { display: flex; align-items: center; gap: 0.5rem; }
+.lp-long-description {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.8rem;
+}
+.lp-content-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2.5rem;
+}
+.lp-modules-list h3, .lp-badges-rewards h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid;
+}
+body.light-theme .lp-modules-list h3, body.light-theme .lp-badges-rewards h3 { border-bottom-color: var(--card-border-light); }
+body.dark-theme .lp-modules-list h3, body.dark-theme .lp-badges-rewards h3 { border-bottom-color: var(--card-border-dark); }
+#lp-detail-modules-container .module-card-in-lp {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+body.light-theme #lp-detail-modules-container .module-card-in-lp {
+    background-color: var(--card-background-light);
+    border: 1px solid var(--card-border-light);
+}
+body.dark-theme #lp-detail-modules-container .module-card-in-lp {
+    background-color: var(--card-background-dark);
+    border: 1px solid var(--card-border-dark);
+}
+#lp-detail-modules-container .module-card-in-lp:hover { transform: translateX(3px); }
+body.light-theme #lp-detail-modules-container .module-card-in-lp:hover { border-left: 3px solid var(--primary-color-light); }
+body.dark-theme #lp-detail-modules-container .module-card-in-lp:hover { border-left: 3px solid var(--primary-color-dark); }
+.module-card-in-lp i.module-icon { font-size: 1.5rem; opacity: 0.7;}
+.module-card-in-lp .module-title-in-lp { font-size: 1.1rem; font-weight: 600; flex-grow: 1; }
+.module-card-in-lp .module-completion-status-lp { font-size: 1.3rem; }
+body.light-theme .module-card-in-lp .module-completion-status-lp.completed { color: var(--correct-color-light); }
+body.dark-theme .module-card-in-lp .module-completion-status-lp.completed { color: var(--correct-color-dark); }
+.badge-list-compact .badge {
+    width: auto;
+    min-height: auto;
+    padding: 0.6rem 1rem;
+    flex-direction: row;
+    gap: 0.6rem;
+    justify-content: flex-start;
+}
+.badge-list-compact .badge i { font-size: 1.3rem; margin-bottom: 0;}
+.badge-list-compact .badge .badge-name { font-size: 0.9rem; }
+
+
+/* === LOADING SPINNER === */
+.loading-spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    color: white;
+}
+.spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid var(--primary-color-light);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+body.dark-theme .spinner { border-top-color: var(--primary-color-dark); }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.loading-spinner-overlay p { font-size: 1.1rem; font-weight: 600; }
 
 
 /* === FOOTER === */
@@ -1095,48 +1551,32 @@ body.dark-theme ::-webkit-scrollbar-thumb:hover {
 
 
 /* === RESPONSIVE DESIGN === */
-@media (max-width: 991px) { 
-    .close-sidenav-btn { display: inline-flex; } /* Butonul de închidere este vizibil pe mobil/tabletă */
-     #sidenav-toggle { display: inline-flex; } /* Hamburger-ul este vizibil */
-
-    /* Când Sidenav-ul este activ pe ecrane mai mici, nu împinge conținutul, ci apare peste */
-    body.sidenav-active .page-content-pusher {
-        margin-left: 0; 
-        /* O mică transformare pentru a sugera că e "sub" Sidenav */
-        /* filter: blur(2px) brightness(0.8); */ /* Opțional, pentru efect */
-    }
-    .sidenav.open {
-        box-shadow: 0 0 15px rgba(0,0,0,0.2); /* Umbră mai pronunțată pe mobil */
-    }
+@media (max-width: 991px) {
+    .close-sidenav-btn { display: inline-flex; }
+    #sidenav-toggle { display: inline-flex; }
+    body.sidenav-active .page-content-pusher { margin-left: 0; }
+    .sidenav.open { box-shadow: 0 0 15px rgba(0,0,0,0.2); }
+    .lp-content-section { grid-template-columns: 1fr; }
 }
 
 @media (min-width: 992px) {
-    /* Pe desktop, dacă Sidenav NU este activ (controlat prin click), hamburger-ul este vizibil */
-    /* body:not(.sidenav-active) #sidenav-toggle { display: inline-flex; } */
-    /* Am eliminat regula de mai sus. Hamburger-ul e controlat de JS, CSS doar stilizează */
-    
-    /* Pe desktop, Sidenav împinge conținutul doar dacă clasa .sidenav-active e pe body */
-    body.sidenav-active .page-content-pusher {
-        margin-left: var(--sidenav-width);
-    }
-    body.sidenav-active .sidenav { /* Când e activ pe desktop, e mereu deschis */
-        left: 0;
-    }
+    body.sidenav-active .page-content-pusher { margin-left: var(--sidenav-width); }
+    body.sidenav-active .sidenav { left: 0; }
 }
 
 
 @media (max-width: 768px) {
     header {
-        padding: 0.8rem 1rem; 
-        height: auto; 
-        flex-wrap: wrap; 
+        padding: 0.8rem 1rem;
+        height: auto;
+        flex-wrap: wrap;
         gap: 0.5rem;
     }
     .header-left { gap: 0.5rem; }
     .logo { font-size: 1.5em; }
-    .user-stats { 
-        font-size: 0.85rem; 
-        padding: 0.4rem 0.6rem; 
+    .user-stats {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
     }
     #theme-toggle-button { width: 36px; height: 36px; font-size: 1.1rem;}
     
@@ -1147,7 +1587,7 @@ body.dark-theme ::-webkit-scrollbar-thumb:hover {
 
     .module { padding: 1.2rem; }
     .module h3 { font-size: 1.3rem; }
-    .lesson-card { padding: 1rem; min-height: 150px;} 
+    .lesson-card { padding: 1rem; min-height: 150px;}
     .lesson-card h4 { font-size: 1.1rem; }
     .lesson-card p { font-size: 0.9rem; }
 
@@ -1158,34 +1598,35 @@ body.dark-theme ::-webkit-scrollbar-thumb:hover {
     .option-button { padding: 0.8rem 1rem; font-size: 0.95rem; }
     button, .button-like { padding: 0.8rem 1.2rem; font-size: 0.95rem;}
     
-    .badge-list { 
-        gap: 1rem; 
+    .badge-list {
+        gap: 1rem;
         justify-content: center;
     }
-    .badge { 
-        width: 100px; 
+    .badge {
+        width: 100px;
         min-height: 100px;
-        padding: 0.8rem; 
+        padding: 0.8rem;
     }
     .badge i { font-size: 2rem; margin-bottom: 0.5rem; }
     .badge .badge-name { font-size: 0.8rem; }
     
+    .learning-paths-grid { grid-template-columns: 1fr; }
+    #lp-detail-title { font-size: 1.6rem; }
+    .lp-header-section { padding: 1.5rem; }
+    .lp-meta-info { gap: 1rem; }
+    .lp-content-section { gap: 1.8rem; }
+
     footer { padding: 1rem 1.5rem; }
 }
 
 @media (max-width: 480px) {
     .logo { font-size: 1.3em; }
-    .user-stats { 
-        display: none; 
-    }
-    .header-right {
-        margin-left: auto; 
-    }
+    .user-stats { display: none; }
+    .header-right { margin-left: auto; }
 
-    .lesson-cards-container {
-        grid-template-columns: 1fr; 
-    }
-    #back-to-dashboard { font-size: 0.85rem; padding: 0.4rem 0.6rem; }
+    .lesson-cards-container { grid-template-columns: 1fr; }
+    #back-to-dashboard.button-subtle,
+    #back-to-lp-overview.button-subtle { font-size: 0.85rem; padding: 0.4rem 0.6rem; }
     .fill-blank-container { flex-direction: column; align-items: stretch; }
     .fill-blank-container input { width: 100%; box-sizing: border-box; }
     .fill-blank-container button { width: 100%; margin-top: 0.8rem; }
@@ -1207,199 +1648,4 @@ body.dark-theme ::-webkit-scrollbar-thumb:hover {
         min-width: 90%;
     }
     .badge-notification h3 { font-size: 1.3rem; }
-}
-
-/* === STILURI PENTRU INTERACTIVE LAB === */
-.interactive-lab-container {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    /* Poți adăuga aici un aspect ratio dacă dorești ca înălțimea să fie proporțională cu lățimea */
-    /* padding-top: 75%;  Exemplu pentru aspect ratio 4:3 */
-    /* height: 0; */
-    /* overflow: hidden; */
-}
-
-.interactive-lab-iframe { /* Clasa adăugată la iframe */
-    display: block;
-    width: 100%;
-    height: 75vh; /* Înălțime semnificativă, poate fi ajustată */
-    min-height: 500px; /* O înălțime minimă rezonabilă */
-    max-height: 800px; /* O înălțime maximă pentru a nu deveni prea mare */
-    border-radius: 8px;
-    background-color: #ffffff; /* Fundal de fallback */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-body.light-theme .interactive-lab-iframe {
-    border: 1px solid var(--card-border-light);
-}
-body.dark-theme .interactive-lab-iframe {
-    border: 1px solid var(--card-border-dark);
-    background-color: var(--card-background-dark); /* Pentru consistență înainte de încărcarea srcdoc */
-}
-
-
-.lab-description {
-    margin-bottom: 1rem;
-    padding: 1.2rem;
-    border-radius: 8px;
-}
-body.light-theme .lab-description {
-    background-color: var(--panel-bg-light);
-    border: 1px solid var(--card-border-light);
-}
-body.dark-theme .lab-description {
-    background-color: var(--panel-bg-dark);
-    border: 1px solid var(--card-border-dark);
-}
-.lab-description h4 {
-    margin-top: 0;
-    font-size: 1.3rem;
-    font-weight: 600;
-}
-body.light-theme .lab-description h4 { color: var(--primary-color-light); }
-body.dark-theme .lab-description h4 { color: var(--primary-color-dark); }
-
-.lab-description p {
-    font-size: 1rem;
-    opacity: 0.9;
-    margin-bottom: 0;
-    line-height: 1.6;
-}
-
-.lab-guidance {
-    margin-top: 2rem;
-    padding: 1.2rem;
-    border-radius: 8px;
-}
-body.light-theme .lab-guidance {
-    background-color: #eef2ff; /* Un albastru foarte deschis, asociat cu informare/ghidaj */
-    border: 1px solid var(--secondary-color-light);
-}
-body.dark-theme .lab-guidance {
-    background-color: #2c3548; /* O nuanță de albastru-gri închis */
-    border: 1px solid var(--secondary-color-dark);
-}
-.lab-guidance h4 {
-    margin-top: 0;
-    font-size: 1.15rem;
-    font-weight: 600;
-}
-body.light-theme .lab-guidance h4 { color: var(--primary-color-light); }
-body.dark-theme .lab-guidance h4 { color: var(--primary-color-dark); }
-
-.lab-guidance ul {
-    list-style-type: '→ '; /* Sau alt stil, ex: disc */
-    padding-left: 1.2rem;
-    margin-bottom: 0;
-    margin-top: 0.8rem;
-}
-.lab-guidance li {
-    margin-bottom: 0.6rem;
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-/* În style.css */
-
-.open-lab-button-container {
-    text-align: center; /* Sau left/right, după preferințe */
-}
-
-#open-interactive-lab-button {
-    /* Poți adăuga stiluri specifice aici dacă clasa .button-like nu e suficientă */
-    /* De exemplu, pentru a-l face mai proeminent */
-    padding: 0.9rem 1.8rem; /* Un pic mai mare */
-    font-size: 1.05rem;
-}
-
-/* Exemplu de stil pentru o clasă .button-primary dacă o folosești */
-body.light-theme .button-primary {
-    background-color: var(--accent-color-light); /* Folosește o culoare de accent */
-    box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2);
-}
-body.light-theme .button-primary:hover {
-    background-color: #6d28d9; /* O nuanță mai închisă a accentului */
-    box-shadow: 0 4px 8px rgba(124, 58, 237, 0.25);
-}
-
-body.dark-theme .button-primary {
-    background-color: var(--accent-color-dark);
-    box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
-}
-body.dark-theme .button-primary:hover {
-    background-color: #7c3aed;
-    box-shadow: 0 4px 8px rgba(139, 92, 246, 0.35);
-}
-
-/* În style.css, poți adăuga la sfârșit sau într-o secțiune relevantă */
-
-.search-container {
-    margin-bottom: 2.5rem; /* Spațiu consistent cu celelalte secțiuni */
-    position: relative;
-    max-width: 600px; /* Limitează lățimea pentru un aspect mai bun pe ecrane mari */
-    /* margin-left: auto; */ /* Opțional, pentru a centra dacă dashboard-ul e mai lat */
-    /* margin-right: auto; */
-}
-
-#search-input {
-    width: 100%;
-    padding: 0.9rem 1.2rem;
-    padding-right: 3rem; /* Spațiu pentru iconiță */
-    font-size: 1rem;
-    border-radius: 8px; /* Consistent cu alte elemente */
-    border-style: solid;
-    border-width: 1px; /* Consistent cu cardurile */
-    box-sizing: border-box;
-    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    font-family: inherit; /* Moștenește fontul body-ului */
-}
-
-body.light-theme #search-input {
-    border-color: var(--card-border-light);
-    background-color: var(--card-background-light);
-    color: var(--text-color-light);
-}
-body.light-theme #search-input::placeholder {
-    color: var(--secondary-color-light);
-    opacity: 0.8;
-}
-body.light-theme #search-input:focus {
-    border-color: var(--primary-color-light);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); /* Similar cu focus-ul altor input-uri */
-    outline: none;
-}
-
-body.dark-theme #search-input {
-    border-color: var(--card-border-dark);
-    background-color: var(--card-background-dark);
-    color: var(--text-color-dark);
-}
-body.dark-theme #search-input::placeholder {
-    color: var(--secondary-color-dark);
-    opacity: 0.8;
-}
-body.dark-theme #search-input:focus {
-    border-color: var(--primary-color-dark);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18); /* Similar cu focus-ul altor input-uri */
-    outline: none;
-}
-
-.search-icon {
-    position: absolute;
-    top: 50%;
-    right: 1rem;
-    transform: translateY(-50%);
-    opacity: 0.6; /* Puțin mai subtil */
-    pointer-events: none; /* Să nu interfereze cu click-ul pe input */
-}
-body.light-theme .search-icon { color: var(--text-color-light); }
-body.dark-theme .search-icon { color: var(--text-color-dark); }
-
-/* Stil pentru când nu se găsesc rezultate */
-.no-search-results {
-    text-align: center;
-    padding: 2rem;
-    font-style: italic;
-    opacity: 0.8;
 }

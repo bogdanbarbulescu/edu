@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ro">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +11,12 @@
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body class="light-theme"> <!-- Clasa inițială pentru temă -->
+
+    <div id="loading-spinner" class="loading-spinner-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Se încarcă datele...</p>
+    </div>
 
     <nav id="sidenav" class="sidenav">
         <div class="sidenav-header">
@@ -23,21 +26,14 @@
             </button>
         </div>
         <ul>
-            <li><a href="#dashboard" class="sidenav-link active-sidenav-link" data-view="dashboard-view"><i
-                        class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-            <li><a href="#cursuri" class="sidenav-link" data-view="courses-view"><i class="fas fa-book-open"></i>
-                    Cursurile Mele</a></li>
-            <li><a href="#progres" class="sidenav-link" data-view="progress-view"><i class="fas fa-chart-line"></i>
-                    Progresul Meu</a></li>
-            <li><a href="#recompense-nav" class="sidenav-link" data-view="badges-view"><i class="fas fa-trophy"></i>
-                    Recompense Nav</a></li>
-            <li>
-                <hr class="sidenav-divider">
-            </li>
-            <li><a href="#profil" class="sidenav-link" data-view="profile-view"><i class="fas fa-user-circle"></i>
-                    Profilul Meu</a></li>
-            <li><a href="#setari" class="sidenav-link" data-view="settings-view"><i class="fas fa-cog"></i> Setări</a>
-            </li>
+            <li><a href="#dashboard" class="sidenav-link active-sidenav-link" data-view="dashboard-view"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="#learning-paths" class="sidenav-link" data-view="learning-paths-overview-view"><i class="fas fa-road"></i> Learning Paths</a></li>
+            <li><a href="#cursuri" class="sidenav-link" data-view="courses-view"><i class="fas fa-book-open"></i> Cursurile Mele</a></li>
+            <li><a href="#progres" class="sidenav-link" data-view="progress-view"><i class="fas fa-chart-line"></i> Progresul Meu</a></li>
+            <li><a href="#recompense-nav" class="sidenav-link" data-view="badges-view"><i class="fas fa-trophy"></i> Recompense Nav</a></li>
+            <li><hr class="sidenav-divider"></li>
+            <li><a href="#profil" class="sidenav-link" data-view="profile-view"><i class="fas fa-user-circle"></i> Profilul Meu</a></li>
+            <li><a href="#setari" class="sidenav-link" data-view="settings-view"><i class="fas fa-cog"></i> Setări</a></li>
             <li>
                 <a href="#" class="sidenav-link" id="sidenav-theme-toggle">
                     <i class="fas fa-palette"></i> <span>Schimbă Tema</span>
@@ -71,69 +67,166 @@
         <main>
             <div id="dashboard-view" class="view active-view">
                 <h2>Dashboard</h2>
-                <!-- ADAUGĂM SECȚIUNEA DE CĂUTARE AICI -->
-                <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Caută module sau lecții..."
-                        aria-label="Câmp de căutare module și lecții">
+                 <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Caută module sau lecții..." aria-label="Câmp de căutare module și lecții">
                     <i class="fas fa-search search-icon"></i>
                 </div>
-                <!-- SFÂRȘIT SECȚIUNE CĂUTARE -->
-                <div id="badges-container"> <!-- Containerul principal pentru recompense -->
+                <div id="badges-container">
                     <h3>Recompense</h3>
-                    <div class="badge-list"> <!-- AICI TREBUIE SĂ FIE ACEST DIV -->
+                    <div class="badge-list">
                         <!-- Badges vor fi inserate dinamic aici de JS -->
                     </div>
                 </div>
                 <div id="modules-container">
-                    <h3>Module Disponibile</h3>
+                     <h3>Module Disponibile</h3>
                     <!-- Module și lecții vor fi inserate dinamic aici -->
                 </div>
             </div>
 
             <div id="lesson-view" class="view">
-                <button id="back-to-dashboard"><i class="fas fa-arrow-left"></i> Înapoi la Dashboard</button>
+                <button id="back-to-dashboard" class="button-subtle"><i class="fas fa-arrow-left"></i> Înapoi la Dashboard</button>
                 <h2 id="lesson-title"></h2>
                 <div id="lesson-content">
                     <!-- Exercițiile lecției vor fi inserate dinamic aici -->
                 </div>
-                <div id="feedback-container"> <!-- Fără clasa feedback-visible inițial -->
+                <div id="feedback-container">
                     <p id="feedback-text"></p>
                     <p id="feedback-explanation"></p>
                 </div>
-                <button id="next-exercise-button" style="display: none;">Continuă <i
-                        class="fas fa-arrow-right"></i></button>
+                <button id="next-exercise-button" style="display: none;">Continuă <i class="fas fa-arrow-right"></i></button>
             </div>
 
-            <!-- Placeholder pentru alte view-uri (pot fi completate ulterior) -->
-            <div id="courses-view" class="view">
-                <h2>Cursurile Mele</h2>
-                <p>Aici va fi lista cursurilor la care ești înscris.</p>
-            </div>
-            <div id="progress-view" class="view">
-                <h2>Progresul Meu</h2>
-                <p>Aici vor fi grafice și statistici despre progresul tău.</p>
-            </div>
-            <div id="badges-view" class="view"> <!-- View dedicat pentru recompense -->
-                <h2>Toate Recompensele</h2>
-                <p>Aici vor fi afișate toate recompensele obținute și cele blocate, într-un format mai detaliat.</p>
-                <!-- Poți refolosi funcția renderBadgesOnDashboard sau crea una specifică aici -->
-                <div class="all-badges-list-container" style="margin-top: 2rem;">
-                    <!-- Conținut similar cu .badge-list de pe dashboard -->
+            <div id="learning-paths-overview-view" class="view">
+                <h2>Parcurse de Învățare Disponibile</h2>
+                <p class="view-description">Alege un parcurs structurat pentru a-ți dezvolta abilitățile într-un domeniu specific.</p>
+                <div id="learning-paths-container" class="learning-paths-grid">
+                    <!-- Cardurile Learning Paths vor fi inserate aici de JS -->
                 </div>
             </div>
+
+            <div id="learning-path-detail-view" class="view">
+                <button id="back-to-lp-overview" class="button-subtle"><i class="fas fa-arrow-left"></i> Înapoi la Parcurse</button>
+                <div class="lp-header-section">
+                    <h2 id="lp-detail-title"></h2>
+                    <div class="lp-meta-info">
+                        <span id="lp-detail-difficulty"><i class="fas fa-signal"></i> </span>
+                        <span id="lp-detail-modules-count"><i class="fas fa-cubes"></i> </span>
+                        <span id="lp-detail-estimated-time"><i class="fas fa-clock"></i> </span>
+                    </div>
+                    <p id="lp-detail-long-description" class="lp-long-description"></p>
+                    <button id="enroll-lp-button" class="button-primary"><i class="fas fa-play-circle"></i> Începe Parcursul</button>
+                </div>
+
+                <div class="lp-content-section">
+                    <div class="lp-modules-list">
+                        <h3>Module în acest Parcurs</h3>
+                        <div id="lp-detail-modules-container">
+                            <!-- Modulele din path vor fi listate aici -->
+                        </div>
+                    </div>
+                    <div class="lp-badges-rewards">
+                        <h3>Recompense Ce Pot Fi Obținute</h3>
+                        <div id="lp-detail-badges-container" class="badge-list-compact">
+                            <!-- Recompensele asociate vor fi afișate aici -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="courses-view" class="view">
+                <h2>Cursurile Mele</h2>
+                <p class="view-description">Aici poți vedea toate modulele disponibile și progresul tău în cadrul fiecăruia.</p>
+                <div id="my-courses-container" class="modules-list-detailed">
+                    <!-- Modulele vor fi inserate aici de JS -->
+                </div>
+            </div>
+
+            <div id="progress-view" class="view">
+                <h2>Progresul Meu</h2>
+                <p class="view-description">Monitorizează-ți evoluția și recompensele obținute.</p>
+                <div class="progress-summary-cards">
+                    <div class="summary-card" id="progress-xp">
+                        <i class="fas fa-star"></i>
+                        <div>
+                            <span class="summary-value">0</span>
+                            <span class="summary-label">Total XP</span>
+                        </div>
+                    </div>
+                    <div class="summary-card" id="progress-streak">
+                        <i class="fas fa-fire"></i>
+                        <div>
+                            <span class="summary-value">0</span>
+                            <span class="summary-label">Serie Zile</span>
+                        </div>
+                    </div>
+                    <div class="summary-card" id="progress-lessons-completed">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <span class="summary-value">0 / 0</span>
+                            <span class="summary-label">Lecții Completate</span>
+                        </div>
+                    </div>
+                    <div class="summary-card" id="progress-badges-earned">
+                        <i class="fas fa-trophy"></i>
+                        <div>
+                            <span class="summary-value">0 / 0</span>
+                            <span class="summary-label">Recompense Câștigate</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="progress-modules-container" class="modules-list-detailed" style="margin-top: 2.5rem;">
+                    <h3>Progres pe Module</h3>
+                    <!-- Progresul pe module va fi inserat aici -->
+                </div>
+                 <!-- Opțional: Container pentru grafice
+                <div id="progress-charts-container" style="margin-top: 2.5rem;">
+                    <h3>Analiză Grafică</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="lessons-completion-chart"></canvas>
+                    </div>
+                </div>
+                -->
+            </div>
+
+             <div id="badges-view" class="view">
+                <h2>Toate Recompensele</h2>
+                <p class="view-description">Aici vor fi afișate toate recompensele obținute și cele blocate, într-un format mai detaliat.</p>
+                 <div class="all-badges-list-container" style="margin-top: 2rem;">
+                    <!-- Conținut similar cu .badge-list de pe dashboard -->
+                 </div>
+            </div>
+
             <div id="profile-view" class="view">
                 <h2>Profilul Meu</h2>
                 <p>Aici vei putea edita informațiile profilului tău.</p>
+                 <!-- Exemplu de conținut pentru profil -->
+                <form id="profile-form" style="margin-top: 1.5rem; max-width: 500px;">
+                    <div style="margin-bottom: 1rem;">
+                        <label for="profile-name" style="display: block; margin-bottom: 0.3rem;">Nume:</label>
+                        <input type="text" id="profile-name" name="profile-name" style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--card-border-light);" value="Utilizator Exemplu" disabled>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label for="profile-email" style="display: block; margin-bottom: 0.3rem;">Email:</label>
+                        <input type="email" id="profile-email" name="profile-email" style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--card-border-light);" value="utilizator@exemplu.com" disabled>
+                    </div>
+                    <p><small>Funcționalitatea de editare a profilului va fi implementată ulterior.</small></p>
+                    <!-- <button type="submit" class="button-like">Salvează Modificările</button> -->
+                </form>
             </div>
+
             <div id="settings-view" class="view">
                 <h2>Setări</h2>
-                <p>Aici vei putea ajusta setările platformei, inclusiv tema.</p>
-                <div style="margin-top: 1rem;">
-                    <label for="theme-select-settings">Selectează Tema:</label>
-                    <select id="theme-select-settings" style="padding: 0.5rem; border-radius: 6px;">
+                <p class="view-description">Aici vei putea ajusta setările platformei.</p>
+                <div style="margin-top: 1.5rem;">
+                    <label for="theme-select-settings" style="display: block; margin-bottom: 0.5rem;">Selectează Tema:</label>
+                    <select id="theme-select-settings" style="padding: 0.6rem; border-radius: 6px; min-width: 200px; font-size: 1rem;">
                         <option value="light">Deschisă</option>
                         <option value="dark">Întunecată</option>
                     </select>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <button id="reset-progress-button" class="button-like" style="background-color: var(--incorrect-color-light);"><i class="fas fa-undo"></i> Resetează Progresul</button>
+                    <p><small>Atenție: Această acțiune va șterge tot progresul salvat (XP, serie, lecții completate, recompense)!</small></p>
                 </div>
             </div>
         </main>
@@ -146,8 +239,7 @@
     <!-- Librării JS -->
     <script src="libs/anime.min.js"></script>
     <script src="libs/sortable.min.js"></script>
-    <!-- <script src="libs/chart.min.js"></script> -->
+    <!-- <script src="libs/chart.min.js"></script> --> <!-- Decomentează dacă folosești grafice -->
     <script src="script.js"></script>
 </body>
-
 </html>
